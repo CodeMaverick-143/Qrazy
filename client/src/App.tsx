@@ -1,26 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from "./landingPage/Navbar";
-import Footer from "./landingPage/Footer";
-import LandingPage from "./landingPage/LandingPage";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Footer from './components/Footer';
 
 function App() {
-  return (
-    <Router>
-      <div className="min-h-screen bg-pitch-black flex flex-col">
-        <Navbar />
-        <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Signup />} />
-          </Routes>
+    return (
+        <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow">
+                <Hero />
+            </main>
+            <Footer />
         </div>
-        <Footer />
-      </div>
-    </Router>
-  );
+    );
 }
 
 export default App;
