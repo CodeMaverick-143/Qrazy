@@ -4,43 +4,61 @@ export default {
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
-                "pitch-black": "#050505",
-                "section-dark": "#0a0a0a",
-                "qrazy-orange": "#FF5500",
-                "neon-pink": "#FF00FF",
-                "neon-purple": "#BC13FE",
-                "neon-blue": "#00F0FF",
-                "dark-bg": "#050505",
-                "card-bg": "#0F0F0F",
-                "glass": "rgba(255, 255, 255, 0.05)",
-                "glass-border": "rgba(255, 255, 255, 0.1)",
+                "void-black": "#050505", // Deepest black
+                "neon-slime": "#CCFF00", // As requested
+                "hot-pink": "#FF00FF",
+                "electric-cyan": "#00FFFF",
+                "chaos-purple": "#9D00FF",
+                "glitch-red": "#FF004C",
+                "warning-yellow": "#FFFF00",
+                "glass-void": "rgba(5, 5, 5, 0.8)",
+                "glass-slime": "rgba(204, 255, 0, 0.1)",
+                // Legacy mappings to prevent crash during refactor
+                "corp-bg": "#050505",
+                "corp-bg-lighter": "#111",
+                "trust-blue": "#00FFFF",
+                "success-green": "#CCFF00",
+                "error-red": "#FF004C",
+                "brand-gray": "#dcdcdc",
+                "brand-dark-blue": "#9D00FF",
             },
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-                display: ['Outfit', 'sans-serif'],
+                sans: ['Space Grotesk', 'Inter', 'sans-serif'], // Fun font
+                mono: ['JetBrains Mono', 'monospace'],
+                display: ['Syne', 'Outfit', 'sans-serif'],
             },
             animation: {
-                'float': 'float 6s ease-in-out infinite',
-                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                'spin-slow': 'spin 12s linear infinite',
-                'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'glitch': 'glitch 1s linear infinite',
+                'float-chaos': 'float-chaos 3s ease-in-out infinite',
+                'spin-fast': 'spin 1s linear infinite',
+                'pulse-fast': 'pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
             },
             keyframes: {
-                float: {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-20px)' },
+                glitch: {
+                    '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                    '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                    '62%': { transform: 'translate(0,0) skew(5deg)' },
                 },
-                'pulse-glow': {
-                    '0%, 100%': { opacity: 1, filter: 'brightness(1.2)' },
-                    '50%': { opacity: 0.8, filter: 'brightness(1)' },
+                'float-chaos': {
+                    '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
+                    '50%': { transform: 'translateY(-10px) rotate(2deg)' },
+                },
+                shake: {
+                    '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                    '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                    '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                    '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
                 }
             },
             boxShadow: {
-                'orange-glow': '0 0 20px rgba(255, 85, 0, 0.4)',
-                'neon-glow': '0 0 20px rgba(188, 19, 254, 0.4)',
+                'slime-glow': '0 0 15px rgba(204, 255, 0, 0.6)',
+                'pink-glow': '0 0 15px rgba(255, 0, 255, 0.6)',
+                'cyan-glow': '0 0 15px rgba(0, 255, 255, 0.6)',
             }
         },
     },
