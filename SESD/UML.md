@@ -14,14 +14,17 @@ classDiagram
         +register(req, res)
         +login(req, res)
         +googleAuth(req, res)
+        +refreshToken(req, res)
         +logout(req, res)
         +getMe(req, res)
+        +updateProfile(req, res)
     }
 
     class AuthService {
         +createUser(userData)
         +validateUser(email, password)
         +generateToken(user)
+        +refresh(token)
     }
 
     class ClubController {
@@ -30,6 +33,7 @@ classDiagram
         +updateClub(req, res)
         +getAllClubs(req, res)
         +verifyClub(req, res)
+        +getClubStats(req, res)
     }
 
     class ClubService {
@@ -37,6 +41,7 @@ classDiagram
         +findById(id)
         +update(id, data)
         +findAll(filters)
+        +getStats(clubId)
     }
 
     class EventController {
@@ -44,26 +49,52 @@ classDiagram
         +getEvent(req, res)
         +getClubEvents(req, res)
         +updateEvent(req, res)
+        +getEventStats(req, res)
     }
 
     class EventService {
         +create(eventData)
         +findById(id)
         +findByClubId(clubId)
+        +getStats(eventId)
     }
 
     class PassController {
         +createPassType(req, res)
-        +purchasePass(req, res)
-        +getMyPasses(req, res)
-        +getPassDetails(req, res)
+        +updatePassType(req, res)
+        +getPassType(req, res)
+        +deletePassType(req, res)
     }
 
     class PassService {
         +createType(typeData)
-        +processOrder(userId, passTypeId)
-        +generateQR(orderId)
-        +getUserPasses(userId)
+        +updateType(id, data)
+        +findById(id)
+    }
+    
+    class OrderController {
+        +createOrder(req, res)
+        +verifyPayment(req, res)
+        +getOrder(req, res)
+        +getMyOrders(req, res)
+    }
+
+    class OrderService {
+        +createOrder(userId, passTypeId, quantity)
+        +verifyPayment(orderId, paymentDetails)
+        +getUserOrders(userId)
+    }
+
+    class TicketController {
+        +getMyTickets(req, res)
+        +generateQR(req, res)
+        +validateTicket(req, res)
+    }
+
+    class TicketService {
+        +generate(orderId)
+        +getQR(ticketId)
+        +validate(qrCode)
     }
 
     class ScanController {
@@ -72,15 +103,34 @@ classDiagram
     }
 
     class ScanService {
-        +validateAndMarkUsed(qrCode)
-        +logScan(qrPassId, scannerId)
+        +processScan(qrCode, scannerId)
+        +getHistory(clubId)
+    }
+
+    class PayoutController {
+        +requestPayout(req, res)
+        +getPayoutHistory(req, res)
+        +getEarnings(req, res)
+    }
+
+    class PayoutService {
+        +createRequest(clubId, amount)
+        +getHistory(clubId)
+        +calculateEarnings(clubId)
     }
 
     AuthController --> AuthService : uses
     ClubController --> ClubService : uses
     EventController --> EventService : uses
     PassController --> PassService : uses
+    OrderController --> OrderService : uses
+    TicketController --> TicketService : uses
     ScanController --> ScanService : uses
+    PayoutController --> PayoutService : uses
+
+    OrderService --> PassService : verifies availability
+    TicketService --> OrderService : links to order
+    ScanService --> TicketService : validates ticket
 ```
 
 ## Frontend Structure (Components)
