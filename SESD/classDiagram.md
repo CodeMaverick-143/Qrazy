@@ -1,33 +1,25 @@
-# Project Structure & UML Class Diagram
-
-This document outlines the architectural structure of the Qrazy Club Pass Marketplace, including both the Backend (Node.js/Express) module design and the Frontend (React) component hierarchy.
-
-## Backend Structure (Modules)
-
-The backend is organized into functional modules. Each module contains a Controller (handling HTTP requests), a Service (business logic), and Routes.
+# Class Diagram - Backend Modules
 
 ```mermaid
 classDiagram
     note "Backend Modules & Classes"
 
     class AuthController {
-        +register(req, res)
+        +AuthController()
         +login(req, res)
-        +googleAuth(req, res)
-        +refreshToken(req, res)
-        +logout(req, res)
         +getMe(req, res)
-        +updateProfile(req, res)
+        +requestMagicLink(req, res)
+        +verifyMagicLink(req, res)
     }
 
     class AuthService {
-        +createUser(userData)
-        +validateUser(email, password)
-        +generateToken(user)
-        +refresh(token)
+        +AuthService()
+        +login(token)
+        +syncUser(supabaseUser)
     }
 
     class ClubController {
+        +ClubController()
         +createClub(req, res)
         +getClub(req, res)
         +updateClub(req, res)
@@ -37,6 +29,7 @@ classDiagram
     }
 
     class ClubService {
+        +ClubService()
         +create(clubData)
         +findById(id)
         +update(id, data)
@@ -45,6 +38,7 @@ classDiagram
     }
 
     class EventController {
+        +EventController()
         +createEvent(req, res)
         +getEvent(req, res)
         +getClubEvents(req, res)
@@ -53,6 +47,7 @@ classDiagram
     }
 
     class EventService {
+        +EventService()
         +create(eventData)
         +findById(id)
         +findByClubId(clubId)
@@ -60,6 +55,7 @@ classDiagram
     }
 
     class PassController {
+        +PassController()
         +createPassType(req, res)
         +updatePassType(req, res)
         +getPassType(req, res)
@@ -67,12 +63,14 @@ classDiagram
     }
 
     class PassService {
+        +PassService()
         +createType(typeData)
         +updateType(id, data)
         +findById(id)
     }
     
     class OrderController {
+        +OrderController()
         +createOrder(req, res)
         +verifyPayment(req, res)
         +getOrder(req, res)
@@ -80,40 +78,47 @@ classDiagram
     }
 
     class OrderService {
+        +OrderService()
         +createOrder(userId, passTypeId, quantity)
         +verifyPayment(orderId, paymentDetails)
         +getUserOrders(userId)
     }
 
     class TicketController {
+        +TicketController()
         +getMyTickets(req, res)
         +generateQR(req, res)
         +validateTicket(req, res)
     }
 
     class TicketService {
+        +TicketService()
         +generate(orderId)
         +getQR(ticketId)
         +validate(qrCode)
     }
 
     class ScanController {
+        +ScanController()
         +scanQR(req, res)
         +getScanHistory(req, res)
     }
 
     class ScanService {
+        +ScanService()
         +processScan(qrCode, scannerId)
         +getHistory(clubId)
     }
 
     class PayoutController {
+        +PayoutController()
         +requestPayout(req, res)
         +getPayoutHistory(req, res)
         +getEarnings(req, res)
     }
 
     class PayoutService {
+        +PayoutService()
         +createRequest(clubId, amount)
         +getHistory(clubId)
         +calculateEarnings(clubId)
@@ -131,78 +136,4 @@ classDiagram
     OrderService --> PassService : verifies availability
     TicketService --> OrderService : links to order
     ScanService --> TicketService : validates ticket
-```
-
-## Frontend Structure (Components)
-
-The frontend is built with React components, organized by feature and reusability.
-
-```mermaid
-classDiagram
-    direction TB
-    note "Frontend Component Hierarchy"
-
-    class App {
-        +render()
-    }
-
-    class Navbar {
-        +render()
-        -handleLogin()
-        -handleLogout()
-    }
-
-    class Hero {
-        +render()
-    }
-
-    class MainContent {
-        <<Container>>
-    }
-
-    class TrustSection {
-        +render()
-    }
-
-    class ValueProps {
-        +render()
-    }
-
-    class ProblemSolution {
-        +render()
-    }
-
-    class ProductOverview {
-        +render()
-    }
-
-    class HowItWorks {
-        +render()
-    }
-
-    class SecuritySection {
-        +render()
-    }
-
-    class CTABand {
-        +render()
-        -handleGetStarted()
-    }
-
-    class Footer {
-        +render()
-    }
-
-    App *-- Navbar
-    App *-- MainContent
-    App *-- Footer
-    
-    MainContent *-- Hero
-    MainContent *-- TrustSection
-    MainContent *-- ValueProps
-    MainContent *-- ProblemSolution
-    MainContent *-- ProductOverview
-    MainContent *-- HowItWorks
-    MainContent *-- SecuritySection
-    MainContent *-- CTABand
 ```

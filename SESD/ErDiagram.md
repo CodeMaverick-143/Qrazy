@@ -1,6 +1,4 @@
-# Database Schema
-
-This diagram represents the current database structure for the Qrazy Club Pass Marketplace.
+# Entity Relationship Diagram (ERD)
 
 ```mermaid
 erDiagram
