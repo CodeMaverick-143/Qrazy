@@ -21,6 +21,9 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
 
+  isEmailVerified Boolean   @default(false)
+  emailVerifiedAt DateTime?
+
   orders Order[]
 
   clubId String?
@@ -83,4 +86,15 @@ model ScanLog {
   scannedAt DateTime @default(now())
 
   qrPass QRPass @relation(fields: [qrPassId], references: [id])
+}
+
+model MagicLink {
+  id        String   @id @default(uuid())
+  email     String
+  tokenHash String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email])
 }

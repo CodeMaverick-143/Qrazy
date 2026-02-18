@@ -4,7 +4,7 @@ import clubRoutes from "./modules/clubs/club.routes.js";
 import eventRoutes from "./modules/events/event.routes.js";
 import passRoutes from "./modules/passes/pass.routes.js";
 import scanRoutes from "./modules/scans/scan.routes.js";
-import { requireAuth } from "./middlewares/auth.js";
+import authMiddleware from "./middlewares/auth.js";
 
 
 
@@ -18,7 +18,7 @@ router.get("/health", (_, res) => {
 
 router.use("/auth", authRoutes);
 
-router.use(requireAuth);
+router.use(authMiddleware.requireAuth);
 
 router.use("/clubs", clubRoutes);
 router.use("/events", eventRoutes);

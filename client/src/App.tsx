@@ -1,30 +1,19 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TrustSection from './components/TrustSection';
-import ValueProps from './components/ValueProps';
-import ProblemSolution from './components/ProblemSolution';
-import ProductOverview from './components/ProductOverview';
-import HowItWorks from './components/HowItWorks';
-import SecuritySection from './components/SecuritySection';
-import CTABand from './components/CTABand';
-import Footer from './components/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import MagicLinkSent from './pages/MagicLinkSent';
+import VerifyMagicLink from './pages/VerifyMagicLink';
 
 function App() {
     return (
-        <div className="min-h-screen flex flex-col bg-corp-bg">
-            <Navbar />
-            <main className="flex-grow">
-                <Hero />
-                <TrustSection />
-                <ValueProps />
-                <ProblemSolution />
-                <ProductOverview />
-                <HowItWorks />
-                <SecuritySection />
-                <CTABand />
-            </main>
-            <Footer />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/magic-link-sent" element={<MagicLinkSent />} />
+                <Route path="/verify-magic-link" element={<VerifyMagicLink />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

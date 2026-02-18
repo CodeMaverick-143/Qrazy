@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { List, X, Lightning } from '@phosphor-icons/react';
 
 export default function Navbar() {
@@ -25,14 +26,15 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-12">
 
                     {/* Logo (Left) */}
-                    <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer group hover:rotate-2 transition-transform">
+                    {/* Logo (Left) */}
+                    <Link to="/" className="flex-shrink-0 flex items-center gap-2 cursor-pointer group hover:rotate-2 transition-transform">
                         <div className="w-8 h-8 flex items-center justify-center bg-neon-slime border-2 border-void-black shadow-[4px_4px_0px_0px_#FF00FF]">
                             <Lightning weight="fill" className="text-void-black w-5 h-5 animate-pulse" />
                         </div>
                         <span className="font-display font-black text-3xl tracking-tighter text-white group-hover:text-neon-slime transition-colors">
                             QRAZY
                         </span>
-                    </div>
+                    </Link>
 
                     {/* Desktop Menu (Center) */}
                     <div className="hidden md:block">
@@ -49,11 +51,10 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* Right Actions */}
                     <div className="hidden md:flex items-center gap-6">
-                        <button className="text-sm font-mono font-bold text-white hover:text-hot-pink transition-colors uppercase tracking-widest">
+                        <Link to="/login" className="text-sm font-mono font-bold text-white hover:text-hot-pink transition-colors uppercase tracking-widest">
                             Log in
-                        </button>
+                        </Link>
                         <button className="btn-primary transform hover:rotate-1">
                             Spin Wheel
                         </button>
@@ -87,9 +88,9 @@ export default function Navbar() {
                             </a>
                         ))}
                         <div className="pt-6 flex flex-col gap-4 px-2">
-                            <button className="w-full py-4 text-white font-mono font-bold hover:text-hot-pink border-2 border-transparent hover:border-hot-pink uppercase tracking-widest">
+                            <Link to="/login" className="w-full py-4 text-center text-white font-mono font-bold hover:text-hot-pink border-2 border-transparent hover:border-hot-pink uppercase tracking-widest">
                                 Log in
-                            </button>
+                            </Link>
                             <button className="w-full btn-primary bg-neon-slime text-void-black">
                                 Spin the Wheel
                             </button>
