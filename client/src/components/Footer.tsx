@@ -1,98 +1,71 @@
-import { TwitterLogo, InstagramLogo, FacebookLogo, LinkedinLogo, Sparkle, PaperPlaneRight } from '@phosphor-icons/react';
+import { TwitterLogo, InstagramLogo, FacebookLogo, LinkedinLogo, Sparkle } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
-        <footer className="bg-corp-bg border-t border-white/5 pt-20 pb-10 relative overflow-hidden">
-
+        <footer className="bg-void-black border-t border-white/5 pt-20 pb-10 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
-                    {/* Brand Column (Spans 2 on mobile, 2 on lg) */}
-                    <div className="col-span-2 lg:col-span-2">
-                        <div className="flex items-center gap-2 mb-6 cursor-pointer group">
-                            <div className="w-8 h-8 rounded-lg bg-trust-blue/10 flex items-center justify-center border border-trust-blue/20">
-                                <Sparkle weight="fill" className="text-trust-blue w-5 h-5" />
+                    {/* Brand Column */}
+                    <div className="col-span-1 md:col-span-2">
+                        <Link to="/" className="flex items-center gap-2 mb-6 cursor-pointer group">
+                            <div className="w-8 h-8 flex items-center justify-center bg-neon-slime border border-void-black shrink-0">
+                                <Sparkle weight="fill" className="text-void-black w-5 h-5" />
                             </div>
-                            <span className="font-display font-bold text-2xl tracking-tight text-white">Qrazy</span>
-                        </div>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
-                            The enterprise standard for nightlife risk management. Securing venues, maximizing revenue, and enhancing guest experiences globally.
+                            <span className="font-display font-black text-3xl tracking-tighter text-white uppercase italic">Qrazy</span>
+                        </Link>
+                        <p className="text-brand-gray/40 font-mono text-sm leading-relaxed mb-8 max-w-sm">
+                            The future of nightlife access. Secure, verified, and chaotic. Stop screenshots. Start partying.
                         </p>
-                        <div className="flex space-x-4">
-                            <SocialIcon icon={<TwitterLogo size={20} weight="fill" />} href="#" />
-                            <SocialIcon icon={<LinkedinLogo size={20} weight="fill" />} href="#" />
-                            <SocialIcon icon={<InstagramLogo size={20} weight="fill" />} href="#" />
-                            <SocialIcon icon={<FacebookLogo size={20} weight="fill" />} href="#" />
+                        <div className="flex space-x-6">
+                            <SocialIcon icon={<TwitterLogo size={24} weight="fill" />} href="#" />
+                            <SocialIcon icon={<InstagramLogo size={24} weight="fill" />} href="#" />
+                            <SocialIcon icon={<FacebookLogo size={24} weight="fill" />} href="#" />
                         </div>
                     </div>
 
-                    {/* Columns */}
+                    {/* Navigation */}
                     <div>
-                        <h4 className="text-white font-bold mb-6 text-sm">Product</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
-                            <li><FooterLink href="#" text="Ticketing" /></li>
-                            <li><FooterLink href="#" text="Access Control" /></li>
-                            <li><FooterLink href="#" text="Analytics" /></li>
-                            <li><FooterLink href="#" text="Promoter Network" /></li>
+                        <h4 className="text-white font-display font-black uppercase mb-6 tracking-tight">Marketplace</h4>
+                        <ul className="space-y-4 font-mono text-sm text-brand-gray/40">
+                            <li><Link to="/clubs" className="hover:text-neon-slime transition-colors">All Clubs</Link></li>
+                            <li><Link to="/clubs" className="hover:text-neon-slime transition-colors">Top Events</Link></li>
+                            <li><Link to="/profile" className="hover:text-neon-slime transition-colors">My Passes</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="text-white font-bold mb-6 text-sm">Company</h4>
-                        <ul className="space-y-4 text-sm text-gray-500">
-                            <li><FooterLink href="#" text="About Us" /></li>
-                            <li><FooterLink href="#" text="Careers" /></li>
-                            <li><FooterLink href="#" text="Press" /></li>
-                            <li><FooterLink href="#" text="Contact" /></li>
+                        <h4 className="text-white font-display font-black uppercase mb-6 tracking-tight">Support</h4>
+                        <ul className="space-y-4 font-mono text-sm text-brand-gray/40">
+                            <li><a href="#" className="hover:text-hot-pink transition-colors">Help Center</a></li>
+                            <li><a href="#" className="hover:text-hot-pink transition-colors">Club Partner</a></li>
+                            <li><a href="#" className="hover:text-hot-pink transition-colors">Terms of Entry</a></li>
                         </ul>
-                    </div>
-
-                    {/* Newsletter (Spans 2 on mobile, 2 on lg) */}
-                    <div className="col-span-2 lg:col-span-2">
-                        <h4 className="text-white font-bold mb-6 text-sm">Stay Updated</h4>
-                        <p className="text-gray-500 text-sm mb-4">
-                            Get the latest insights on nightlife technology and risk management.
-                        </p>
-                        <form className="flex gap-2">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="bg-corp-bg-lighter border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-trust-blue w-full"
-                            />
-                            <button className="bg-trust-blue hover:bg-blue-600 text-white rounded-lg px-4 py-2.5 transition-colors">
-                                <PaperPlaneRight size={20} weight="bold" />
-                            </button>
-                        </form>
                     </div>
                 </div>
 
-                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-600 text-xs">
-                        &copy; {new Date().getFullYear()} Qrazy, Inc. All rights reserved.
+                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-brand-gray/20 font-mono text-[10px] uppercase tracking-[0.2em]">
+                        &copy; {new Date().getFullYear()} Qrazy Marketplace. Built for the underground.
                     </p>
-                    <div className="flex space-x-8 text-xs text-gray-600">
-                        <a href="#" className="hover:text-trust-blue transition-colors">Privacy Policy</a>
-                        <a href="#" className="hover:text-trust-blue transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-trust-blue transition-colors">Cookie Settings</a>
+                    <div className="flex space-x-12 font-mono text-[10px] text-brand-gray/20 uppercase tracking-widest">
+                        <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                        <a href="#" className="hover:text-white transition-colors">Cookies</a>
                     </div>
                 </div>
             </div>
+
+            {/* Background Glow */}
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-neon-slime/5 blur-[100px] rounded-full" />
         </footer>
     );
 }
 
 function SocialIcon({ icon, href }: { icon: React.ReactNode, href: string }) {
     return (
-        <a href={href} className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all">
+        <a href={href} className="text-brand-gray/40 hover:text-neon-slime transition-all">
             {icon}
-        </a>
-    );
-}
-
-function FooterLink({ text, href }: { text: string, href: string }) {
-    return (
-        <a href={href} className="hover:text-trust-blue transition-colors">
-            {text}
         </a>
     );
 }

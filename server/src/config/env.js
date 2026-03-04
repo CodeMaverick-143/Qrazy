@@ -6,10 +6,10 @@ class EnvConfig {
         this.NODE_ENV = process.env.NODE_ENV || "development";
         this.PORT = Number(process.env.PORT || 4000);
         this.DATABASE_URL = this.getEnv("DATABASE_URL");
-        this.DIRECT_URL = this.getEnv("DIRECT_URL");
-        this.SUPABASE_URL = this.getEnv("SUPABASE_URL");
-        this.SUPABASE_ANON_KEY = this.getEnv("SUPABASE_ANON_KEY");
-        this.SUPABASE_SERVICE_ROLE_KEY = this.getEnv("SUPABASE_SERVICE_ROLE_KEY");
+        this.DIRECT_URL = process.env.DIRECT_URL || "";
+        this.SUPABASE_URL = process.env.SUPABASE_URL || "http://localhost:54321";
+        this.SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "dummy-anon-key";
+        this.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "dummy-service-role-key";
         this.FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
         this.APP_NAME = "Qrazy";
 

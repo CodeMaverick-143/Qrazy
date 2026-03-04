@@ -57,6 +57,7 @@ export default {
             },
             boxShadow: {
                 'slime-glow': '0 0 15px rgba(204, 255, 0, 0.6)',
+                'slime-glow-soft': '0 0 20px rgba(204, 255, 0, 0.3)',
                 'pink-glow': '0 0 15px rgba(255, 0, 255, 0.6)',
                 'cyan-glow': '0 0 15px rgba(0, 255, 255, 0.6)',
             }

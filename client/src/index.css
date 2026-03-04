@@ -48,7 +48,7 @@ body {
   }
 
   .btn-secondary {
-    @apply px-8 py-3 rounded-none font-mono font-bold text-neon-slime transition-all duration-300 bg-void-black border border-neon-slime hover:bg-neon-slime/10 hover:shadow-[0_0_20px_rgba(204, 255, 0, 0.3)];
+    @apply px-8 py-3 rounded-none font-mono font-bold text-neon-slime transition-all duration-300 bg-void-black border border-neon-slime hover:bg-neon-slime/10 hover:shadow-slime-glow-soft;
   }
 
   .holographic-text {
