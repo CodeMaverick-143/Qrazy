@@ -1,73 +1,62 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthProvider';
+import { SpinnerGap, ShieldCheck, WifiHigh } from '@phosphor-icons/react';
 
-function VerifyMagicLink() {
-    const [searchParams] = useSearchParams();
+const VerifyMagicLink = () => {
+    const { user, loading } = useAuth();
     const navigate = useNavigate();
-    const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-    const [message, setMessage] = useState('Verifying your magic link...');
 
     useEffect(() => {
-        const verify = async () => {
-            const email = searchParams.get('email');
-            const token = searchParams.get('token');
-
-            if (!email || !token) {
-                setStatus('error');
-                setMessage('Invalid link parameters.');
-                return;
-            }
-
-            try {
-                // Assuming backend runs on port 4000
-                const response = await fetch('http://localhost:4000/api/auth/magic-link/verify', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, token }),
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    setStatus('success');
-                    setMessage('Successfully verified! Redirecting...');
-                    // Store user data if needed, e.g., context or localStorage
-                    setTimeout(() => navigate('/'), 2000);
-                } else {
-                    setStatus('error');
-                    setMessage(data.message || 'Verification failed.');
-                }
-            } catch (error) {
-                setStatus('error');
-                setMessage('Network error occurred.');
-            }
-        };
-
-        verify();
-    }, [searchParams, navigate]);
+        // If user is already authenticated or session is restored
+        if (!loading && user) {
+            const timer = setTimeout(() => {
+                navigate('/');
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [user, loading, navigate]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-corp-bg text-white">
-            <div className="max-w-md w-full p-8 bg-gray-900 rounded-lg shadow-lg text-center">
-                <h2 className="text-2xl font-bold mb-4">
-                    {status === 'loading' && 'Verifying...'}
-                    {status === 'success' && 'Success!'}
-                    {status === 'error' && 'Error'}
-                </h2>
-                <p className={`text-lg ${status === 'error' ? 'text-red-400' : 'text-gray-300'}`}>
-                    {message}
-                </p>
-                {status === 'error' && (
-                    <button
-                        onClick={() => navigate('/')}
-                        className="mt-6 px-4 py-2 bg-brand-primary text-black font-semibold rounded hover:bg-opacity-90 transition"
-                    >
-                        Go Home
-                    </button>
-                )}
+        <div className="min-h-screen bg-void-black flex flex-col items-center justify-center p-4">
+            <div className="max-w-md w-full text-center">
+                <div className="inline-flex items-center justify-center w-24 h-24 bg-neon-slime/10 border-2 border-neon-slime shadow-slime-glow mb-10 transform rotate-45 group">
+                    <div className="transform -rotate-45">
+                        <ShieldCheck size={48} className="text-neon-slime animate-pulse" />
+                    </div>
+                </div>
+
+                <h1 className="text-4xl font-display font-black text-white italic tracking-tighter uppercase mb-6 leading-none">
+                    Security <span className="text-neon-slime">Handshake</span>
+                </h1>
+
+                <div className="space-y-6 max-w-xs mx-auto">
+                    <div className="flex flex-col items-center gap-4 py-8 glass-panel border-white/5">
+                        <SpinnerGap size={32} className="text-neon-slime animate-spin" />
+                        <div className="space-y-2">
+                            <p className="font-mono text-[10px] text-white uppercase tracking-[0.3em] font-black">Establishing Secure Link</p>
+                            <p className="font-mono text-[9px] text-brand-gray/40 uppercase tracking-widest px-8">Validating cryptographically signed token with central QRAZY protocol...</p>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-8 opacity-20">
+                        <div className="flex flex-col items-center gap-1">
+                            <WifiHigh size={16} className="text-neon-slime" />
+                            <span className="font-mono text-[8px] uppercase">Proxy 1</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1">
+                            <WifiHigh size={16} className="text-neon-slime" />
+                            <span className="font-mono text-[8px] uppercase">Proxy 2</span>
+                        </div>
+                        <div className="flex flex-col items-center gap-1">
+                            <WifiHigh size={16} className="text-neon-slime" />
+                            <span className="font-mono text-[8px] uppercase">Central</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
-}
+};
 
 export default VerifyMagicLink;

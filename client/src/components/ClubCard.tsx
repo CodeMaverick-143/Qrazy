@@ -31,35 +31,35 @@ export default function ClubCard({ id, name, location, rating, image, descriptio
                 )}
 
                 <div className="absolute top-4 right-4 bg-void-black/80 backdrop-blur-md text-neon-slime border border-neon-slime/30 px-2 py-1 text-xs font-mono font-bold">
-                    {rating} ★
+                    {/* The rating display here is removed as per the instruction, which moves it to the content section. */}
                 </div>
             </div>
 
             {/* Content Section */}
             <div className="p-6">
-                <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-xl font-display font-black text-white group-hover:text-neon-slime transition-colors">
+                <Link to={`/event/${id}`} className="flex justify-between items-start mb-4">
+                    <h3 className="text-2xl font-display font-black text-white italic tracking-tighter uppercase group-hover:text-neon-slime transition-colors">
                         {name}
                     </h3>
+                </Link>
+                <div className="flex items-center gap-4 text-brand-gray/40 font-mono text-[10px] uppercase mb-4 tracking-widest leading-none">
+                    <div className="flex items-center gap-1">
+                        <MapPin size={14} className="text-hot-pink" />
+                        {location}
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <Star size={14} className="text-neon-slime" weight="fill" />
+                        {rating}
+                    </div>
                 </div>
-
-                <div className="flex items-center gap-1 text-brand-gray/60 text-xs font-mono mb-4">
-                    <MapPin weight="fill" className="text-hot-pink" />
-                    {location}
-                </div>
-
-                <p className="text-sm text-brand-gray/80 line-clamp-2 mb-6 font-sans">
+                <p className="text-brand-gray/60 font-mono text-xs leading-relaxed mb-6 line-clamp-2">
                     {description}
                 </p>
-
                 <Link
                     to={`/event/${id}`}
-                    className="flex items-center justify-between w-full font-mono font-bold text-neon-slime group/btn uppercase tracking-tighter text-sm"
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 border border-white/10 text-white font-mono font-bold text-[10px] uppercase group-hover:bg-neon-slime group-hover:text-void-black transition-all group-hover:border-neon-slime"
                 >
-                    <span>View Passes</span>
-                    <div className="w-8 h-8 rounded-full border border-neon-slime/30 flex items-center justify-center group-hover/btn:bg-neon-slime group-hover/btn:text-void-black transition-all">
-                        <ArrowRight weight="bold" />
-                    </div>
+                    Infiltrate <ArrowRight />
                 </Link>
             </div>
 

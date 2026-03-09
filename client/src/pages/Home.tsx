@@ -1,33 +1,30 @@
+import { useEffect, useState } from 'react';
 import Hero from '../components/Hero';
 import ClubCard from '../components/ClubCard';
-import { Sparkle, ArrowRight } from '@phosphor-icons/react';
+import { Sparkle, ArrowRight, SpinnerGap } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
-import clubImg from '../assets/club.png';
-import djImg from '../assets/dj.png';
-
-// Featured Data
-const FEATURED_CLUBS = [
-    {
-        id: '1',
-        name: 'The Vault',
-        location: 'Mumbai, BKC',
-        rating: 4.8,
-        description: 'Elite techno sanctuary with a custom Funktion-One sound system. Experience the underground.',
-        image: clubImg,
-        isVerified: true
-    },
-    {
-        id: '2',
-        name: 'Neon Sky',
-        location: 'Bangalore, Indiranagar',
-        rating: 4.5,
-        description: 'Breathtaking rooftop views with a futuristic cocktail menu and deep house beats.',
-        image: djImg,
-        isVerified: true
-    }
-];
 
 function Home() {
+    const [featuredClubs, setFeaturedClubs] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchFeatured = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/clubs?verified=true`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setFeaturedClubs(data.slice(0, 2));
+                }
+            } catch (error) {
+                console.error('Failed to fetch featured clubs:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFeatured();
+    }, []);
+
     return (
         <div className="min-h-screen bg-void-black">
             <main>
@@ -51,11 +48,26 @@ function Home() {
                             </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                            {FEATURED_CLUBS.map((club) => (
-                                <ClubCard key={club.id} {...club} />
-                            ))}
-                        </div>
+                        {loading ? (
+                            <div className="flex items-center justify-center py-20">
+                                <SpinnerGap className="text-neon-slime animate-spin" size={40} />
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                {featuredClubs.map((club) => (
+                                    <ClubCard
+                                        key={club.id}
+                                        id={club.id}
+                                        name={club.name}
+                                        location={club.city}
+                                        description={club.events?.[0]?.title || "Upcoming residency and chaos."}
+                                        rating={4.5}
+                                        isVerified={club.verified}
+                                        image={club.image || "https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&q=80&w=800"}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -89,7 +101,7 @@ function Home() {
                 <section className="py-32 relative overflow-hidden text-center bg-void-black">
                     <div className="relative z-10 px-4">
                         <h2 className="text-5xl md:text-9xl font-display font-black text-white italic tracking-tighter uppercase mb-12">
-                            READY TO <span className="holographic-text">QRAZY?</span>
+                            READY TO <span className="holographic-text glitch">QRAZY?</span>
                         </h2>
                         <Link to="/clubs" className="btn-primary inline-flex items-center gap-4 text-2xl px-12 py-6 border-b-8 border-r-8">
                             FIND A NIGHT <ArrowRight weight="bold" />
