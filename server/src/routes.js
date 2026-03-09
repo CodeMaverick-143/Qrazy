@@ -17,11 +17,11 @@ router.get("/health", (_, res) => {
 
 
 router.use("/auth", authRoutes);
+router.use("/clubs", clubRoutes);
+router.use("/events", eventRoutes);
 
 router.use(authMiddleware.requireAuth);
 
-router.use("/clubs", clubRoutes);
-router.use("/events", eventRoutes);
 router.use("/passes", passRoutes);
 router.use("/scans", scanRoutes);
 

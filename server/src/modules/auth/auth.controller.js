@@ -1,5 +1,4 @@
 import authService from "./auth.service.js";
-import magicLinkService from "./magic-link.service.js";
 
 class AuthController {
     async login(req, res, next) {
@@ -26,27 +25,14 @@ class AuthController {
     }
 
     async requestMagicLink(req, res, next) {
-        try {
-            const { email } = req.body;
-            if (!email) return res.status(400).json({ message: "Email is required" });
-
-            const result = await magicLinkService.requestLink(email);
-            res.status(200).json(result);
-        } catch (error) {
-            next(error);
-        }
+        // Supabase Magic Link is handled directly from the frontend
+        // This endpoint could be used for server-side link generation if needed
+        res.status(501).json({ message: "Use Supabase client-side OTP for Magic Link" });
     }
 
     async verifyMagicLink(req, res, next) {
-        try {
-            const { email, token } = req.body;
-            if (!email || !token) return res.status(400).json({ message: "Email and token required" });
-
-            const user = await magicLinkService.verifyLink(email, token);
-            res.status(200).json({ message: "Email verified successfully", user });
-        } catch (error) {
-            next(error);
-        }
+        // Verification happens via the login/sync endpoint after Supabase confirms the OTP
+        res.status(501).json({ message: "Use /auth/login with the Supabase session token to verify" });
     }
 }
 

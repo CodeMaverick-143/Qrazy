@@ -6,7 +6,7 @@ class AuthMiddleware {
         try {
             const authHeader = req.headers.authorization;
             if (!authHeader || !authHeader.startsWith("Bearer ")) {
-                return res.status(401).json({ message: "Unauthorized: Warning: No token provided" });
+                return res.status(401).json({ message: `Unauthorized: No token for ${req.originalUrl}` });
             }
 
             const token = authHeader.split(" ")[1];

@@ -9,6 +9,8 @@ class Database extends PrismaClient {
 
     async connect() {
         try {
+            const sanitizedUrl = process.env.DATABASE_URL?.replace(/:([^:@]+)@/, ":****@");
+            console.log(`Attempting to connect to database: ${sanitizedUrl}`);
             await this.$connect();
             console.log("Database connected successfully");
         } catch (error) {
