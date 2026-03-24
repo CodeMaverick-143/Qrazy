@@ -1,5 +1,61 @@
 import React, { useEffect, useRef } from 'react';
 
+class Particle {
+    x: number;
+    y: number;
+    size: number;
+    baseX: number;
+    baseY: number;
+    density: number;
+    color: string;
+    ctx: CanvasRenderingContext2D;
+
+    constructor(x: number, y: number, ctx: CanvasRenderingContext2D) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 0.5;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = (Math.random() * 30) + 1;
+        this.color = Math.random() > 0.5 ? '#CCFF00' : '#00FFFF';
+    }
+
+    draw() {
+        this.ctx.fillStyle = this.color;
+        this.ctx.beginPath();
+        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        this.ctx.closePath();
+        this.ctx.fill();
+    }
+
+    update(mouse: { x: number; y: number }) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const maxDistance = 200;
+
+        if (distance < maxDistance) {
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (maxDistance - distance) / maxDistance;
+            const directionX = forceDirectionX * force * this.density;
+            const directionY = forceDirectionY * force * this.density;
+            this.x -= directionX;
+            this.y -= directionY;
+        } else {
+            if (this.x !== this.baseX) {
+                const dxReturn = this.x - this.baseX;
+                this.x -= dxReturn / 15;
+            }
+            if (this.y !== this.baseY) {
+                const dyReturn = this.y - this.baseY;
+                this.y -= dyReturn / 15;
+            }
+        }
+    }
+}
+
 const CyberBackground: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -13,69 +69,14 @@ const CyberBackground: React.FC = () => {
         let animationFrameId: number;
         let particles: Particle[] = [];
         const particleCount = 40;
-        let mouse = { x: -1000, y: -1000 };
-
-        class Particle {
-            x: number;
-            y: number;
-            size: number;
-            baseX: number;
-            baseY: number;
-            density: number;
-            color: string;
-
-            constructor(x: number, y: number) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 2 + 0.5;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1;
-                this.color = Math.random() > 0.5 ? '#CCFF00' : '#00FFFF';
-            }
-
-            draw() {
-                if (!ctx) return;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.closePath();
-                ctx.fill();
-            }
-
-            update() {
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                let forceDirectionX = dx / distance;
-                let forceDirectionY = dy / distance;
-                let maxDistance = 200;
-                let force = (maxDistance - distance) / maxDistance;
-                let directionX = forceDirectionX * force * this.density;
-                let directionY = forceDirectionY * force * this.density;
-
-                if (distance < maxDistance) {
-                    this.x -= directionX;
-                    this.y -= directionY;
-                } else {
-                    if (this.x !== this.baseX) {
-                        let dx = this.x - this.baseX;
-                        this.x -= dx / 15;
-                    }
-                    if (this.y !== this.baseY) {
-                        let dy = this.y - this.baseY;
-                        this.y -= dy / 15;
-                    }
-                }
-            }
-        }
+        const mouse = { x: -1000, y: -1000 };
 
         const init = () => {
             particles = [];
             for (let i = 0; i < particleCount; i++) {
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                particles.push(new Particle(x, y));
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                particles.push(new Particle(x, y, ctx));
             }
         };
 
@@ -122,7 +123,7 @@ const CyberBackground: React.FC = () => {
 
             for (let i = 0; i < particles.length; i++) {
                 particles[i].draw();
-                particles[i].update();
+                particles[i].update(mouse);
             }
 
             animationFrameId = requestAnimationFrame(animate);

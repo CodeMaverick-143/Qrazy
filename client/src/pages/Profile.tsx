@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Ticket, ClockCounterClockwise, SpinnerGap, Sparkle, SealCheck } from '@phosphor-icons/react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useAuth } from '../components/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
+import type { Order } from '../types';
 
-const AssetCard = ({ order }: { order: any }) => {
+const AssetCard = ({ order }: { order: Order }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -49,13 +50,13 @@ const AssetCard = ({ order }: { order: any }) => {
 
                 <div className="flex-grow mb-10">
                     <div className="text-neon-slime font-mono text-[10px] font-black uppercase tracking-[0.4em] mb-2 px-2 border-l-2 border-neon-slime">
-                        {order.passType.event.club.name}
+                        {order.passType.event?.club?.name}
                     </div>
                     <h4 className="text-3xl font-display font-black text-white uppercase italic tracking-tighter leading-none mb-1 group-hover:text-neon-slime transition-colors">
-                        {order.passType.event.title}
+                        {order.passType.event?.title}
                     </h4>
                     <p className="text-brand-gray/40 font-mono text-[10px] uppercase mt-2">
-                        Sector: {order.passType.event.club.city} • {new Date(order.passType.event.date).toLocaleDateString()}
+                        Sector: {order.passType.event?.club?.city} • {order.passType.event?.date ? new Date(order.passType.event.date).toLocaleDateString() : 'TBD'}
                     </p>
                 </div>
 
@@ -84,7 +85,7 @@ const AssetCard = ({ order }: { order: any }) => {
 export default function Profile() {
     const { user, dbUser, loading: authLoading, session } = useAuth();
     const navigate = useNavigate();
-    const [orders, setOrders] = useState<any[]>([]);
+    const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

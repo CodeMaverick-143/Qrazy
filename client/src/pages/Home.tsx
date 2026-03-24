@@ -3,9 +3,10 @@ import Hero from '../components/Hero';
 import ClubCard from '../components/ClubCard';
 import { Sparkle, ArrowRight, SpinnerGap } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
+import type { Club } from '../types';
 
 function Home() {
-    const [featuredClubs, setFeaturedClubs] = useState<any[]>([]);
+    const [featuredClubs, setFeaturedClubs] = useState<Club[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

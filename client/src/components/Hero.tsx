@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
 import { ArrowRight, Ticket, ShieldCheck, Sparkle } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import heroImg from '../assets/hero.png';
 
 export default function Hero() {
+    const heroNoise = useMemo(() => Array.from({ length: 64 }).map(() => Math.random() > 0.5), []);
+
     return (
         <div className="relative isolate bg-void-black overflow-hidden min-h-[90vh] flex items-center">
             {/* Background Image with Overlay */}
@@ -105,8 +108,8 @@ export default function Hero() {
                             </div>
                             <div className="aspect-square bg-white p-3 mb-4">
                                 <div className="w-full h-full border-2 border-void-black flex flex-wrap opacity-20">
-                                    {Array.from({ length: 64 }).map((_, i) => (
-                                        <div key={i} className={`w-[12.5%] h-[12.5%] ${Math.random() > 0.5 ? 'bg-void-black' : 'bg-transparent'}`} />
+                                    {heroNoise.map((isActive, i) => (
+                                        <div key={i} className={`w-[12.5%] h-[12.5%] ${isActive ? 'bg-void-black' : 'bg-transparent'}`} />
                                     ))}
                                 </div>
                             </div>

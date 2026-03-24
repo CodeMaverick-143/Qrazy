@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { List, X, Lightning, Ticket, House, Martini, User as UserIcon, SignOut } from '@phosphor-icons/react';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);

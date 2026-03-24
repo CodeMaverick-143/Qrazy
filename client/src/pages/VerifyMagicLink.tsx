@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
 import { SpinnerGap, ShieldCheck, WifiHigh } from '@phosphor-icons/react';
 
 const VerifyMagicLink = () => {

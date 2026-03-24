@@ -6,3 +6,5 @@ build
 coverage
 .vercel
 .vscode
+server/prisma/seed.js
+server/prisma/migrations/*

@@ -1,20 +1,7 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Warning, CheckCircle, Info, X } from '@phosphor-icons/react';
-
-type ToastType = 'chaos' | 'success' | 'info';
-
-interface Toast {
-    id: string;
-    message: string;
-    type: ToastType;
-}
-
-interface ToastContextType {
-    addToast: (message: string, type?: ToastType) => void;
-}
-
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+import { ToastContext, type Toast, type ToastType } from './ToastContextType';
 
 export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
@@ -56,8 +43,8 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
                                 <div className="flex items-start gap-4 relative z-10">
                                     <div className={`shrink-0 mt-1 ${toast.type === 'chaos' ? 'text-glitch-red' :
-                                            toast.type === 'success' ? 'text-neon-slime' :
-                                                'text-electric-cyan'
+                                        toast.type === 'success' ? 'text-neon-slime' :
+                                            'text-electric-cyan'
                                         }`}>
                                         {toast.type === 'chaos' && <Warning size={20} weight="fill" className="animate-pulse" />}
                                         {toast.type === 'success' && <CheckCircle size={20} weight="fill" />}
@@ -87,8 +74,8 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                                     animate={{ scaleX: 0 }}
                                     transition={{ duration: 5, ease: 'linear' }}
                                     className={`absolute bottom-0 left-0 right-0 h-[2px] origin-left ${toast.type === 'chaos' ? 'bg-glitch-red' :
-                                            toast.type === 'success' ? 'bg-neon-slime' :
-                                                'bg-electric-cyan'
+                                        toast.type === 'success' ? 'bg-neon-slime' :
+                                            'bg-electric-cyan'
                                         }`}
                                 />
                             </div>
@@ -98,12 +85,4 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             </div>
         </ToastContext.Provider>
     );
-};
-
-export const useChaos = () => {
-    const context = useContext(ToastContext);
-    if (!context) {
-        throw new Error('useChaos must be used within a ToastProvider');
-    }
-    return context;
 };

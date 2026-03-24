@@ -4,9 +4,10 @@ import ClubCard from '../components/ClubCard';
 import LocationSelector from '../components/LocationSelector';
 import GenreFilter from '../components/GenreFilter';
 import VibeMeter from '../components/VibeMeter';
+import type { Club } from '../types';
 
 export default function Clubs() {
-    const [clubs, setClubs] = useState<any[]>([]);
+    const [clubs, setClubs] = useState<Club[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCity, setSelectedCity] = useState('MUMBAI');

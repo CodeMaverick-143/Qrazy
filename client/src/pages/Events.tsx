@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MagnifyingGlass, SpinnerGap, ArrowRight, Sparkle, CaretRight } from '@phosphor-icons/react';
 import LocationSelector from '../components/LocationSelector';
+import type { Event } from '../types';
 
 export default function Events() {
-    const [events, setEvents] = useState<any[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCity, setSelectedCity] = useState('PUNE');

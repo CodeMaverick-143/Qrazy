@@ -1,4 +1,4 @@
-import { TwitterLogo, InstagramLogo, FacebookLogo, LinkedinLogo, Sparkle } from '@phosphor-icons/react';
+import { TwitterLogo, InstagramLogo, FacebookLogo, Sparkle } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Ticket, Calendar, Clock, MapPin, CaretLeft, CheckCircle, SpinnerGap } from '@phosphor-icons/react';
-import { useAuth } from '../components/AuthProvider';
+import { useAuth } from '../hooks/useAuth';
+import type { Club, PassType } from '../types';
 
 export default function EventDetails() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user, session } = useAuth();
-    const [club, setClub] = useState<any>(null);
+    const [club, setClub] = useState<Club | null>(null);
     const [loading, setLoading] = useState(true);
     const [purchasing, setPurchasing] = useState<string | null>(null);
 
@@ -165,7 +166,7 @@ export default function EventDetails() {
                             </div>
                         ) : (
                             <div className="space-y-4">
-                                {event.passTypes.map((pass: any) => (
+                                {event.passTypes.map((pass: PassType) => (
                                     <div key={pass.id} className="p-4 bg-void-black border border-brand-gray/10 hover:border-neon-slime transition-colors group">
                                         <div className="flex justify-between items-start mb-1">
                                             <h4 className="font-mono font-black text-white uppercase">{pass.name}</h4>

@@ -1,4 +1,4 @@
-import { Buildings, Sliders, RocketLaunch, ChartLineUp, CaretRight, CheckCircle } from '@phosphor-icons/react';
+import { Buildings, Sliders, RocketLaunch, ChartLineUp, CaretRight } from '@phosphor-icons/react';
 
 export default function HowItWorks() {
     const steps = [

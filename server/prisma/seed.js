@@ -13,91 +13,70 @@ async function main() {
     await prisma.user.deleteMany();
     await prisma.club.deleteMany();
 
-    console.log('Seeding Indian Clubs...');
+    console.log('Seeding Expanded Indian Clubs Network...');
 
-    const clubs = [
-        {
-            name: 'The Vault',
-            city: 'Mumbai',
-            verified: true,
-            events: {
-                create: [
-                    {
-                        title: 'MIDNIGHT MAYHEM',
-                        date: new Date(Date.now() + 86400000), // Tomorrow
-                        passTypes: {
-                            create: [
-                                { name: 'General Entry', price: 1500, capacity: 100 },
-                                { name: 'Couple Entry', price: 2500, capacity: 50 },
-                                { name: 'VIP Lounge', price: 10000, capacity: 10 }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            name: 'Social - Indiranagar',
-            city: 'Bangalore',
-            verified: true,
-            events: {
-                create: [
-                    {
-                        title: 'SUNDOWNER BEATS',
-                        date: new Date(Date.now() + 172800000), // Day after
-                        passTypes: {
-                            create: [
-                                { name: 'Stag Entry', price: 1000, capacity: 200 },
-                                { name: 'Couple Entry', price: 1800, capacity: 100 }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            name: 'Kitty Su',
-            city: 'Delhi',
-            verified: true,
-            events: {
-                create: [
-                    {
-                        title: 'NEON CARNIVAL',
-                        date: new Date(Date.now() + 259200000), // 3 days later
-                        passTypes: {
-                            create: [
-                                { name: 'Early Bird', price: 2000, capacity: 300 },
-                                { name: 'VIP Access', price: 5000, capacity: 50 }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            name: 'Priveé',
-            city: 'Delhi',
-            verified: false,
-            events: {
-                create: [
-                    {
-                        title: 'BOLLYWOOD NIGHT',
-                        date: new Date(Date.now() + 432000000), // 5 days later
-                        passTypes: {
-                            create: [
-                                { name: 'General', price: 2500, capacity: 500 }
-                            ]
-                        }
-                    }
-                ]
-            }
-        }
+    const cities = [
+        'Mumbai', 'Bangalore', 'Delhi', 'Goa', 'Pune',
+        'Hyderabad', 'Gurgaon', 'Kolkata', 'Chennai', 'Chandigarh'
     ];
 
-    for (const clubData of clubs) {
-        await prisma.club.create({
-            data: clubData
-        });
+    const clubPrefixes = ['Neon', 'Velvet', 'Cyber', 'Electric', 'Void', 'Zenith', 'Pulse', 'Prism', 'Echo', 'Flux', 'Solar', 'Luna', 'Aura', 'Nova', 'Titan'];
+    const clubSuffixes = ['Club', 'Lounge', 'Room', 'Stage', 'Vault', 'Orbit', 'Sphere', 'Haven', 'Sanctuary', 'Bunker', 'Basement', 'Attic', 'Garden', 'Plaza', 'Den'];
+
+    const eventThemes = [
+        'Midnight Mayhem', 'Sundowner Beats', 'Neon Carnival', 'Bollywood Night',
+        'Techno Takeover', 'Retro Rewind', 'Acoustic Soul', 'Progressive Pulse',
+        'EDM Explosion', 'Hip-Hop Hype', 'Trance Travel', 'House Party'
+    ];
+
+    for (const city of cities) {
+        console.log(`Generating 10 clubs for ${city}...`);
+
+        for (let i = 0; i < 10; i++) {
+            const clubName = `${clubPrefixes[Math.floor(Math.random() * clubPrefixes.length)]} ${clubSuffixes[Math.floor(Math.random() * clubSuffixes.length)]} ${i + 1}`;
+
+            // Generate random capacity between 100-500
+            const totalCapacity = Math.floor(Math.random() * 401) + 100;
+
+            // Distribute capacity across 2-3 pass types
+            const passTypeCount = Math.floor(Math.random() * 2) + 2; // 2 or 3
+            const passTypes = [];
+
+            let remainingCapacity = totalCapacity;
+            for (let j = 0; j < passTypeCount; j++) {
+                const isLast = j === passTypeCount - 1;
+                const capacity = isLast ? remainingCapacity : Math.floor(remainingCapacity / (passTypeCount - j));
+                remainingCapacity -= capacity;
+
+                const names = ['General Entry', 'Couple Entry', 'VIP Access', 'Early Bird', 'VIP Lounge'];
+                const prices = [500, 1000, 1500, 2000, 3000, 5000];
+
+                passTypes.push({
+                    name: names[j % names.length],
+                    price: prices[Math.floor(Math.random() * prices.length)],
+                    capacity: capacity
+                });
+            }
+
+            await prisma.club.create({
+                data: {
+                    name: clubName,
+                    city: city,
+                    verified: Math.random() > 0.3,
+                    events: {
+                        create: [
+                            {
+                                title: eventThemes[Math.floor(Math.random() * eventThemes.length)].toUpperCase(),
+                                date: new Date(Date.now() + Math.floor(Math.random() * 604800000)), // Random within next 7 days
+                                passTypes: {
+                                    create: passTypes
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+        }
     }
 
     console.log('Seeding Super Admin...');
@@ -110,7 +89,7 @@ async function main() {
         }
     });
 
-    console.log('Seeding complete! 🚀');
+    console.log('Seeding complete! 🚀 Total Clubs: 100');
 }
 
 main()
