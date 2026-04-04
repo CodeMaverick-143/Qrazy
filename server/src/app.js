@@ -20,10 +20,8 @@ const publicPath = path.join(__dirname, "../public");
 app.use(express.static(publicPath));
 
 // Catch-all route to serve the frontend's index.html
-app.get("*", (req, res) => {
-    if (!req.path.startsWith("/api")) {
-        res.sendFile(path.join(publicPath, "index.html"));
-    }
+app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.join(publicPath, "index.html"));
 });
 app.use(errorMiddleware.handle);
 

@@ -19,7 +19,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     };
 
     return (
-        <ToastContext.Provider value={{ addToast }}>
+        <ToastContext.Provider value={{ addToast, removeToast }}>
             {children}
             <div className="fixed bottom-8 right-8 z-[10000] space-y-4 pointer-events-none">
                 <AnimatePresence>
