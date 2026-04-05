@@ -8,26 +8,17 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum Role {
-  USER
-  CLUB_ADMIN
-  SUPER_ADMIN
-}
-
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-
+  id              String    @id @default(uuid())
+  email           String    @unique
+  name            String?
+  role            Role      @default(USER)
+  createdAt       DateTime  @default(now())
   isEmailVerified Boolean   @default(false)
   emailVerifiedAt DateTime?
-
-  orders Order[]
-
-  clubId String?
-  club   Club?   @relation(fields: [clubId], references: [id])
+  clubId          String?
+  orders          Order[]
+  club            Club?     @relation(fields: [clubId], references: [id])
 }
 
 model Club {
@@ -35,57 +26,51 @@ model Club {
   name     String
   city     String
   verified Boolean @default(false)
-
-  events Event[]
-  admins User[]
+  events   Event[]
+  admins   User[]
 }
 
 model Event {
-  id     String   @id @default(uuid())
-  clubId String
-  title  String
-  date   DateTime
-
+  id        String     @id @default(uuid())
+  clubId    String
+  title     String
+  date      DateTime
   club      Club       @relation(fields: [clubId], references: [id])
   passTypes PassType[]
 }
 
 model PassType {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   eventId  String
   name     String
   price    Int
   capacity Int
-
-  event  Event   @relation(fields: [eventId], references: [id])
-  orders Order[]
+  orders   Order[]
+  event    Event   @relation(fields: [eventId], references: [id])
 }
 
 model Order {
-  id         String @id @default(uuid())
+  id         String   @id @default(uuid())
   userId     String
   passTypeId String
-
-  qrPass   QRPass?
-  user     User     @relation(fields: [userId], references: [id])
-  passType PassType @relation(fields: [passTypeId], references: [id])
+  passType   PassType @relation(fields: [passTypeId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+  qrPass     QRPass?
 }
 
 model QRPass {
-  id      String  @id @default(uuid())
-  orderId String  @unique
-  used    Boolean @default(false)
-
-  scans ScanLog[]
-  order Order     @relation(fields: [orderId], references: [id])
+  id      String    @id @default(uuid())
+  orderId String    @unique
+  used    Boolean   @default(false)
+  order   Order     @relation(fields: [orderId], references: [id])
+  scans   ScanLog[]
 }
 
 model ScanLog {
   id        String   @id @default(uuid())
   qrPassId  String
   scannedAt DateTime @default(now())
-
-  qrPass QRPass @relation(fields: [qrPassId], references: [id])
+  qrPass    QRPass   @relation(fields: [qrPassId], references: [id])
 }
 
 model MagicLink {
@@ -97,4 +82,10 @@ model MagicLink {
   createdAt DateTime @default(now())
 
   @@index([email])
+}
+
+enum Role {
+  USER
+  CLUB_ADMIN
+  SUPER_ADMIN
 }
