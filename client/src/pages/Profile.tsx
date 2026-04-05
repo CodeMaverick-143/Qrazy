@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Ticket, ClockCounterClockwise, SpinnerGap, Sparkle, SealCheck } from '@phosphor-icons/react';
+import { Ticket, ClockCounterClockwise, SpinnerGap, Sparkle, SealCheck, MapPin, Calendar, Receipt } from '@phosphor-icons/react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import type { Order } from '../types';
@@ -119,6 +119,10 @@ export default function Profile() {
         ? new Date(dbUser.createdAt).toLocaleDateString('en-US', { month: 'short', year: '2-digit' }).toUpperCase()
         : '---';
 
+    // Separate orders into active and past
+    const activeOrders = orders.filter(o => !o.qrPass?.used);
+    const pastOrders = orders.filter(o => o.qrPass?.used);
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
@@ -191,14 +195,15 @@ export default function Profile() {
                             <div className="flex items-center justify-center py-24">
                                 <SpinnerGap className="text-neon-slime animate-spin" size={48} />
                             </div>
-                        ) : orders.length > 0 ? (
+                        ) : activeOrders.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                {orders.map((order, index) => (
+                                {activeOrders.map((order) => (
                                     <AssetCard 
                                         key={order.id} 
                                         order={order} 
                                         onClick={() => {
-                                            setSelectedOrderIndex(index);
+                                            const originalIndex = orders.findIndex(o => o.id === order.id);
+                                            setSelectedOrderIndex(originalIndex);
                                             setIsTicketViewOpen(true);
                                         }}
                                     />
@@ -224,18 +229,43 @@ export default function Profile() {
                             <h3 className="text-xl font-display font-black text-brand-gray/60 uppercase italic tracking-tighter leading-none">Past Transmissions</h3>
                             <div className="h-[1px] flex-grow bg-white/5 self-center mt-1" />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
-                            <div className="border border-white/10 p-8 font-mono relative group">
-                                <div className="absolute top-2 right-2 w-1 h-1 bg-white/20" />
-                                <p className="text-[10px] text-brand-gray/40 mb-3 tracking-[0.2em]">LAST_LOCATION: GOA_SECTOR</p>
-                                <p className="text-sm text-white uppercase font-black italic tracking-tighter">Resonance Festival 2025</p>
+
+                        {pastOrders.length > 0 ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
+                                {pastOrders.map((order) => (
+                                    <div key={order.id} className="border border-white/10 p-8 font-mono relative group bg-white/5">
+                                        <div className="absolute top-2 right-2 w-1 h-1 bg-neon-slime/30" />
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div>
+                                                <p className="text-[10px] text-brand-gray/40 mb-1 tracking-[0.2em] uppercase">Sector: {order.passType.event?.club?.city}</p>
+                                                <h4 className="text-lg text-white uppercase font-black italic tracking-tighter leading-tight">
+                                                    {order.passType.event?.title}
+                                                </h4>
+                                            </div>
+                                            <Receipt size={20} className="text-brand-gray/20" />
+                                        </div>
+                                        <div className="flex flex-col gap-2 pt-4 border-t border-white/5">
+                                            <div className="flex items-center gap-2 text-[10px] text-brand-gray/60 uppercase">
+                                                <Calendar size={12} className="text-neon-slime/40" />
+                                                {order.passType.event?.date ? new Date(order.passType.event.date).toLocaleDateString() : 'TBD'}
+                                            </div>
+                                            <div className="flex items-center gap-2 text-[10px] text-neon-slime/60 font-black uppercase">
+                                                <MapPin size={12} />
+                                                {order.passType.event?.club?.name}
+                                            </div>
+                                        </div>
+                                        <div className="mt-6 flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-brand-gray/40">
+                                            <span>Tier: {order.passType.name}</span>
+                                            <span className="px-2 py-0.5 bg-white/5 border border-white/10">Scanned_OK</span>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="border border-white/10 p-8 font-mono relative group">
-                                <div className="absolute top-2 right-2 w-1 h-1 bg-white/20" />
-                                <p className="text-[10px] text-brand-gray/40 mb-3 tracking-[0.2em]">LAST_LOCATION: MUMBAI_SECTOR</p>
-                                <p className="text-sm text-white uppercase font-black italic tracking-tighter">Anti-Gravity Residency</p>
+                        ) : (
+                            <div className="text-center py-12 border border-dashed border-white/5 opacity-40">
+                                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-brand-gray/40">No historical transmissions found.</p>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>

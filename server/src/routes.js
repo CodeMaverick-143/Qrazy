@@ -12,8 +12,8 @@ const router = Router();
 
 
 router.get("/health", (_, res) => {
-    res.status(200)
-})
+    res.status(200).json({ status: "UP" });
+});
 
 
 router.use("/auth", authRoutes);

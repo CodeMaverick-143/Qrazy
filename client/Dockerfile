@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
@@ -42,6 +42,10 @@ ENV BACKEND_PORT=5000
 
 # Expose port 80
 EXPOSE 80
+
+# Healthcheck for Nginx
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1/ || exit 1
 
 # The official Nginx image supports environment variables in templates
 # It automatically runs envsubst on files in /etc/nginx/templates/*.template

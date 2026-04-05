@@ -33,12 +33,17 @@ export interface Event {
     passTypes: PassType[];
 }
 
+export interface QRPass {
+    id: string;
+    orderId: string;
+    used: boolean;
+}
+
 export interface Order {
     id: string;
     userId: string;
     passTypeId: string;
-    quantity: number;
-    status: string;
     createdAt: string;
     passType: PassType;
+    qrPass?: QRPass;
 }

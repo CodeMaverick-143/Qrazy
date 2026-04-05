@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Ticket, Calendar, MapPin, Fingerprint, Printer, DownloadSimple, Sparkle, CaretLeft, CaretRight, SpinnerGap } from '@phosphor-icons/react';
+import { X, Ticket, Calendar, Fingerprint, Printer, DownloadSimple, Sparkle, CaretLeft, CaretRight, SpinnerGap } from '@phosphor-icons/react';
 import { QRCodeCanvas } from 'qrcode.react';
 import type { Order } from '../types';
 import { useAuth } from '../hooks/useAuth';
