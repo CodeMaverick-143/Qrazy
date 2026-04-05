@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
 import { ArrowRight, Ticket, ShieldCheck, Sparkle } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import heroImg from '../assets/hero.png';
 
 export default function Hero() {
-    const heroNoise = useMemo(() => Array.from({ length: 64 }).map(() => Math.random() > 0.5), []);
+    // Deterministic bit-mask for background noise (100% pure & idempotent)
+    const heroNoise = Array.from({ length: 64 }).map((_, i) => (i * 13 + 7) % 2 === 0);
 
     return (
         <div className="relative isolate bg-void-black overflow-hidden min-h-[90vh] flex items-center">
