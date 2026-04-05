@@ -10,4 +10,16 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom', 'framer-motion'],
+          icons: ['@phosphor-icons/react']
+        }
+      }
+    }
+  }
 })
