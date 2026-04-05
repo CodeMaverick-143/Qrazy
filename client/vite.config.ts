@@ -10,6 +10,13 @@ export default defineConfig({
       },
     }),
   ],
+  worker: {
+    format: 'es',
+    plugins: () => [react()],
+  },
+  optimizeDeps: {
+    exclude: ['@phosphor-icons/react'],
+  },
   build: {
     sourcemap: false,
     chunkSizeWarningLimit: 1000,
