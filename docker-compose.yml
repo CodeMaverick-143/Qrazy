@@ -1,46 +1,9 @@
-version: '3.8'
+version: "3.8"
+
 services:
-  frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-      args:
-        - VITE_SUPABASE_URL=http://localhost:54321
-        - VITE_SUPABASE_ANON_KEY=dummy-anon-key
-        - VITE_API_URL=/api
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
-    networks:
-      - qrazy-network
-
-  backend:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
-    environment:
-      - NODE_ENV=production
-      - PORT=4000
-      - DATABASE_URL=postgresql://user:password@db:5432/qrazy?schema=public
-      - DIRECT_URL=postgresql://user:password@db:5432/qrazy?schema=public
-      - SUPABASE_URL=http://localhost:54321
-      - SUPABASE_ANON_KEY=dummy-anon-key
-      - SUPABASE_SERVICE_ROLE_KEY=dummy-service-role-key
-      - MAIL_HOST=smtp.ethereal.email
-      - MAIL_PORT=587
-      - MAIL_USER=your_email
-      - MAIL_PASS=your_password
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - qrazy-network
-
   db:
     image: postgres:15-alpine
+    restart: always
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -50,10 +13,47 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U user -d qrazy" ]
+      test: ["CMD-SHELL", "pg_isready -U user -d qrazy"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - qrazy-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DATABASE_URL=postgresql://user:password@db:5432/qrazy?schema=public
+      - DIRECT_URL=postgresql://user:password@db:5432/qrazy?schema=public
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - qrazy-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - VITE_SUPABASE_URL=${SUPABASE_URL}
+        - VITE_SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+        - VITE_API_URL=https://Qrazy.nstsdc.org/api
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
     networks:
       - qrazy-network
 
