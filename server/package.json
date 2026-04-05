@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles"
   },
   "keywords": [
     "Qrazy",
@@ -25,10 +28,13 @@
   "author": "Arpit Sarang",
   "license": "MIT",
   "type": "module",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@faker-js/faker": "^10.2.0",
     "@prisma/client": "^6.19.2",
-    "@supabase/supabase-js": "^2.93.2",
+    "@supabase/supabase-js": "^2.101.1",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
@@ -40,6 +46,15 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@types/jest": "^30.0.0",
+    "@types/supertest": "^7.2.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "jest": "^30.3.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.1",
+    "supertest": "^7.2.2"
   }
 }
