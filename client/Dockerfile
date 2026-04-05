@@ -1,5 +1,7 @@
-# Stage 1: Build the Vite application
 FROM node:20-bookworm-slim AS builder
+
+# Enforce 4GB Memory for Icon Transformations
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 WORKDIR /app
 
@@ -36,7 +38,7 @@ COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Default values for environment variables used in Nginx config
 ENV BACKEND_HOST=backend
-ENV BACKEND_PORT=4000
+ENV BACKEND_PORT=5000
 
 # Expose port 80
 EXPOSE 80

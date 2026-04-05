@@ -4,8 +4,9 @@ import { Ticket, ClockCounterClockwise, SpinnerGap, Sparkle, SealCheck } from '@
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 import type { Order } from '../types';
+import { TicketModal } from '../components/TicketModal';
 
-const AssetCard = ({ order }: { order: Order }) => {
+const AssetCard = ({ order, onClick }: { order: Order; onClick: () => void }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -30,17 +31,17 @@ const AssetCard = ({ order }: { order: Order }) => {
             style={{ rotateX, rotateY, perspective: 1000 }}
             onMouseMove={handleMouse}
             onMouseLeave={handleMouseLeave}
+            onClick={onClick}
             className="holographic-card border border-white/10 p-[1px] group cursor-pointer"
         >
             <div className="bg-void-black p-8 flex flex-col h-full relative overflow-hidden">
-                {/* Security Marker */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-electric-cyan/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="flex justify-between items-start mb-10 pb-4 border-b border-white/5">
                     <div className="flex items-center gap-2">
                         <Sparkle weight="fill" className="text-electric-cyan animate-spin-slow" size={14} />
                         <span className="text-[10px] font-mono text-electric-cyan uppercase tracking-[0.3em] font-black">
-                            GENUINE_ENCRYPTION
+                            SECURED_ASSET
                         </span>
                     </div>
                     <span className="text-[9px] font-mono text-brand-gray/40 uppercase">
@@ -56,37 +57,35 @@ const AssetCard = ({ order }: { order: Order }) => {
                         {order.passType.event?.title}
                     </h4>
                     <p className="text-brand-gray/40 font-mono text-[10px] uppercase mt-2">
-                        Sector: {order.passType.event?.club?.city} • {order.passType.event?.date ? new Date(order.passType.event.date).toLocaleDateString() : 'TBD'}
+                        {order.passType.event?.club?.city} • {order.passType.event?.date ? new Date(order.passType.event.date).toLocaleDateString() : 'TBD'}
                     </p>
                 </div>
 
                 <div className="flex items-end justify-between gap-6">
                     <div className="space-y-3">
                         <div className="text-[9px] font-mono text-brand-gray/40 uppercase tracking-[0.2em]">Protocol Entry</div>
-                        <div className="px-4 py-1.5 bg-neon-slime text-void-black font-mono text-[11px] uppercase font-black shadow-slime-glow-soft">
+                        <div className="px-4 py-1.5 bg-neon-slime/10 border border-neon-slime/40 text-neon-slime font-mono text-[11px] uppercase font-black">
                             {order.passType.name}
                         </div>
                     </div>
-                    <div className="w-24 h-24 bg-white p-2 shrink-0 group-hover:scale-105 transition-transform">
-                        <div className="w-full h-full bg-void-black flex items-center justify-center text-[9px] text-brand-gray/30 text-center font-mono uppercase border border-white/10 p-2 leading-[1.1]">
-                            PROTOCOL SECURED_QR
-                        </div>
+                    <div className="w-16 h-16 border border-white/10 flex items-center justify-center group-hover:bg-neon-slime group-hover:border-neon-slime transition-all">
+                        <Ticket size={24} className="text-brand-gray/40 group-hover:text-void-black transition-colors" weight="fill" />
                     </div>
                 </div>
-
-                <button className="mt-10 w-full py-4 bg-white/5 border border-white/10 hover:border-neon-slime hover:bg-neon-slime hover:text-void-black transition-all font-mono text-[11px] font-black uppercase tracking-[0.4em] shadow-inner">
-                    INITIALIZE ENTRY
-                </button>
+                
+                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-neon-slime scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
             </div>
         </motion.div>
     );
 };
 
 export default function Profile() {
-    const { user, dbUser, loading: authLoading, session } = useAuth();
+    const { user, dbUser, loading: authLoading, session, signOut } = useAuth();
     const navigate = useNavigate();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isTicketViewOpen, setIsTicketViewOpen] = useState(false);
+    const [selectedOrderIndex, setSelectedOrderIndex] = useState(0);
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -127,7 +126,6 @@ export default function Profile() {
                 <div className="lg:w-72 shrink-0">
                     <div className="sticky top-32">
                         <div className="mb-12 relative">
-                            {/* Technical Decoration */}
                             <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-neon-slime/30" />
 
                             <div className="w-20 h-20 bg-neon-slime flex items-center justify-center text-void-black font-display font-black text-3xl italic mb-6 shadow-slime-glow hover:scale-105 transition-transform cursor-crosshair">
@@ -169,7 +167,10 @@ export default function Profile() {
                             </div>
                         </div>
 
-                        <button className="w-full mt-16 py-3 bg-white/5 border border-white/10 text-brand-gray/40 font-mono text-[9px] uppercase font-black hover:bg-glitch-red/10 hover:border-glitch-red hover:text-glitch-red transition-all tracking-[0.3em] group">
+                        <button
+                            onClick={signOut}
+                            className="w-full mt-16 py-3 bg-white/5 border border-white/10 text-brand-gray/40 font-mono text-[9px] uppercase font-black hover:bg-glitch-red/10 hover:border-glitch-red hover:text-glitch-red transition-all tracking-[0.3em] group"
+                        >
                             <span className="group-hover:animate-pulse">TERMINATE SESSION</span>
                         </button>
                     </div>
@@ -192,8 +193,15 @@ export default function Profile() {
                             </div>
                         ) : orders.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                {orders.map((order) => (
-                                    <AssetCard key={order.id} order={order} />
+                                {orders.map((order, index) => (
+                                    <AssetCard 
+                                        key={order.id} 
+                                        order={order} 
+                                        onClick={() => {
+                                            setSelectedOrderIndex(index);
+                                            setIsTicketViewOpen(true);
+                                        }}
+                                    />
                                 ))}
                             </div>
                         ) : (
@@ -217,7 +225,6 @@ export default function Profile() {
                             <div className="h-[1px] flex-grow bg-white/5 self-center mt-1" />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
-                            {/* Static placeholder for history */}
                             <div className="border border-white/10 p-8 font-mono relative group">
                                 <div className="absolute top-2 right-2 w-1 h-1 bg-white/20" />
                                 <p className="text-[10px] text-brand-gray/40 mb-3 tracking-[0.2em]">LAST_LOCATION: GOA_SECTOR</p>
@@ -232,6 +239,13 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
+
+            <TicketModal 
+                isOpen={isTicketViewOpen}
+                onClose={() => setIsTicketViewOpen(false)}
+                orders={orders}
+                initialIndex={selectedOrderIndex}
+            />
         </div>
     );
 }

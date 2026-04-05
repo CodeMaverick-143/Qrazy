@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { List, X, Lightning, Ticket, House, Martini, User as UserIcon, SignOut } from '@phosphor-icons/react';
+import { List, X, Lightning, Ticket, House, Martini, CalendarBlank, User as UserIcon, SignOut } from '@phosphor-icons/react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Navbar() {
@@ -18,6 +18,7 @@ export default function Navbar() {
 
     const navLinks = [
         { name: 'Home', href: '/', icon: <House size={20} /> },
+        { name: 'Events', href: '/events', icon: <CalendarBlank size={20} /> },
         { name: 'Clubs', href: '/clubs', icon: <Martini size={20} /> },
         ...(user ? [{ name: 'My Passes', href: '/profile', icon: <Ticket size={20} /> }] : []),
     ];

@@ -25,6 +25,17 @@ class PassController {
             next(error);
         }
     }
+
+    async initializeEntry(req, res, next) {
+        try {
+            const { orderId } = req.params;
+            const userId = req.user.id;
+            const result = await passService.initializeEntry(userId, orderId);
+            res.status(200).json(result);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export default new PassController();
