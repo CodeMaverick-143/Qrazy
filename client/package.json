@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "export NODE_OPTIONS=--max-old-space-size=4096 && tsc -b && vite build",
+    "build:fast": "export NODE_OPTIONS=--max-old-space-size=4096 && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
