@@ -95,3 +95,5 @@ The project is configured for automated deployment via GitHub Actions.
 ## License
 
 Copyright (c) 2026 Qrazy Platforms. All rights reserved.
+
+## Arpit Sarang
