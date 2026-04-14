@@ -98,6 +98,7 @@ No screenshots. No fake passes. Fully verifiable entry.
 
 ### Backend
 - Node.js with Express
+- Protocol layers divided using Repository Pattern (Clean Architecture)
 - Prisma ORM
 - PostgreSQL
 - WebSockets for real-time updates
@@ -120,7 +121,7 @@ No screenshots. No fake passes. Fully verifiable entry.
 - Order
 - QRPass
 - ScanLog
-- Payout
+- PayoutRequest
 
 ### Relationships
 - One Club has many Events

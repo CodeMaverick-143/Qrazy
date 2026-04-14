@@ -35,6 +35,7 @@ flowchart LR
             CreateEvent([Create Event])
             ManagePass([Manage Pass Types])
             ScanQR([Scan and Verify Ticket QR])
+            RequestPayout([Request Payout])
         end
 
         %% Super Admin Functions
@@ -60,6 +61,7 @@ flowchart LR
     ClubAdmin --> CreateEvent
     ClubAdmin --> ManagePass
     ClubAdmin --> ScanQR
+    ClubAdmin --> RequestPayout
 
     %% Super Admin Relationships
     SuperAdmin --> VerifyClub
@@ -71,6 +73,7 @@ flowchart LR
     CreateEvent -.->|Requires Login| Login
     ManagePass -.->|Requires Login| Login
     ScanQR -.->|Requires Login| Login
+    RequestPayout -.->|Requires Login| Login
 ```
 
 ---
@@ -105,6 +108,7 @@ All actors must register or login using a **Magic Link Authentication system** b
 - Create events  
 - Configure pass types  
 - Scan and verify QR-based tickets  
+- Request earnings payouts
 
 ---
 

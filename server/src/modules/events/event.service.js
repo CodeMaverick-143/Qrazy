@@ -1,11 +1,11 @@
-import prisma from "../../config/prisma.js";
+import eventRepository from "./event.repository.js";
 
 class EventService {
     async getAll(filters = {}) {
         const { city, search } = filters;
 
-        return await prisma.event.findMany({
-            where: {
+        return await eventRepository.findMany(
+            {
                 date: {
                     gte: new Date(), // Only future events
                 },
@@ -24,20 +24,20 @@ class EventService {
                     ]
                 })
             },
-            include: {
+            {
                 club: true,
                 passTypes: true
             },
-            orderBy: {
+            {
                 date: 'asc'
             }
-        });
+        );
     }
 
     async getById(id) {
-        return await prisma.event.findUnique({
-            where: { id },
-            include: {
+        return await eventRepository.findById(
+            id,
+            {
                 club: true,
                 passTypes: {
                     orderBy: {
@@ -45,7 +45,7 @@ class EventService {
                     }
                 }
             }
-        });
+        );
     }
 }
 
