@@ -51,8 +51,18 @@ erDiagram
         DateTime scannedAt
     }
 
+    PayoutRequest {
+        String id PK
+        String clubId FK
+        Float amount
+        PayoutStatus status "enum: PENDING, PROCESSED, REJECTED"
+        DateTime requestedAt
+        DateTime processedAt "nullable"
+    }
+
     Club |o--o{ User : "has admins"
     Club ||--o{ Event : "hosts"
+    Club ||--o{ PayoutRequest : "requests"
     
     Event ||--o{ PassType : "includes"
     

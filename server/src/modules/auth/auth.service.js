@@ -1,4 +1,4 @@
-import prisma from "../../config/prisma.js";
+import userRepository from "./user.repository.js";
 import { supabaseAuth } from "../../config/supabase.js";
 
 class AuthService {
@@ -7,19 +7,10 @@ class AuthService {
         const name = user_metadata?.name || user_metadata?.full_name || email.split("@")[0];
 
         // Sync Supabase user with local database
-        const user = await prisma.user.upsert({
-            where: { email },
-            update: {
-                name,
-                isEmailVerified: true,
-                emailVerifiedAt: new Date(),
-            },
-            create: {
-                email,
-                name,
-                isEmailVerified: true,
-                emailVerifiedAt: new Date(),
-            },
+        const user = await userRepository.upsertByEmail(email, {
+            name,
+            isEmailVerified: true,
+            emailVerifiedAt: new Date(),
         });
 
         return user;

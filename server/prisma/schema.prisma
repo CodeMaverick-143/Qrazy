@@ -36,8 +36,9 @@ model Club {
   city     String
   verified Boolean @default(false)
 
-  events Event[]
-  admins User[]
+  events         Event[]
+  admins         User[]
+  payoutRequests PayoutRequest[]
 }
 
 model Event {
@@ -97,4 +98,21 @@ model MagicLink {
   createdAt DateTime @default(now())
 
   @@index([email])
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSED
+  REJECTED
+}
+
+model PayoutRequest {
+  id          String       @id @default(uuid())
+  clubId      String
+  amount      Float
+  status      PayoutStatus @default(PENDING)
+  requestedAt DateTime     @default(now())
+  processedAt DateTime?
+
+  club Club @relation(fields: [clubId], references: [id])
 }

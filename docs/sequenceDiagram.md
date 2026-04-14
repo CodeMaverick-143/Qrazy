@@ -19,19 +19,23 @@ sequenceDiagram
     User->>Frontend: Complete Payment (Mock/Stripe)
     Frontend->>OrderController: POST /orders/verify-payment (orderId)
     OrderController->>OrderService: verifyPayment(orderId)
-    OrderService->>OrderService: Update Status to PAID
+    OrderService->>OrderRepository: updateStatus(id, PAID)
     OrderService->>TicketService: generate(orderId)
+    TicketService->>TicketRepository: create(userId, orderId)
     TicketService-->>OrderService: Ticket Generated (QR Code)
     OrderService-->>OrderController: Payment Success & Ticket Details
     OrderController-->>Frontend: Success Response
 
     User->>Frontend: View My Tickets
-    Frontend-->>User: Display QR Code
+    Frontend-->>User: Display QR Code (JWT signed format)
 
     Note over User, ClubAdmin: At the Event Venue
 
     ClubAdmin->>Frontend: Scan User's QR Code
-    Frontend->>TicketService: validate(qrCode)
-    TicketService-->>Frontend: Valid / Invalid
+    Frontend->>ScanController: POST /scans/process (token)
+    ScanController->>ScanService: processScan(token)
+    ScanService->>ScanLogRepository: create(qrPassId)
+    ScanService-->>ScanController: Result (Valid/Invalid)
+    ScanController-->>Frontend: Verification status
     Frontend-->>ClubAdmin: Show Result (Green/Red)
 ```
