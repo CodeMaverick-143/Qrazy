@@ -8,7 +8,7 @@ const VerifyMagicLink = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // If user is already authenticated or session is restored
+       
         if (!loading && user) {
             const timer = setTimeout(() => {
                 navigate('/');

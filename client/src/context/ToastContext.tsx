@@ -38,7 +38,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                                 ${toast.type === 'info' ? 'bg-electric-cyan/10 border-electric-cyan' : ''}
                                 backdrop-blur-xl border border-white/5
                             `}>
-                                {/* Glitch background decoration */}
+                                {}
                                 <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-white/5 to-transparent skew-x-12 translate-x-12" />
 
                                 <div className="flex items-start gap-4 relative z-10">
@@ -68,7 +68,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                                     </button>
                                 </div>
 
-                                {/* Animated progress bar */}
+                                {}
                                 <motion.div
                                     initial={{ scaleX: 1 }}
                                     animate={{ scaleX: 0 }}

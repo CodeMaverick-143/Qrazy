@@ -49,7 +49,7 @@ export default function EventDetails() {
             });
 
             if (response.ok) {
-                // Redirect to profile to see the pass
+               
                 navigate('/profile');
             } else {
                 const error = await response.json();

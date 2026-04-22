@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+
 export default {
     content: [
         "./index.html",
@@ -8,8 +8,8 @@ export default {
     theme: {
         extend: {
             colors: {
-                "void-black": "#050505", // Deepest black
-                "neon-slime": "#CCFF00", // As requested
+                "void-black": "#050505",
+                "neon-slime": "#CCFF00",
                 "hot-pink": "#FF00FF",
                 "electric-cyan": "#00FFFF",
                 "chaos-purple": "#9D00FF",
@@ -17,7 +17,7 @@ export default {
                 "warning-yellow": "#FFFF00",
                 "glass-void": "rgba(5, 5, 5, 0.8)",
                 "glass-slime": "rgba(204, 255, 0, 0.1)",
-                // Legacy mappings to prevent crash during refactor
+               
                 "corp-bg": "#050505",
                 "corp-bg-lighter": "#111",
                 "trust-blue": "#00FFFF",
@@ -27,7 +27,7 @@ export default {
                 "brand-dark-blue": "#9D00FF",
             },
             fontFamily: {
-                sans: ['Space Grotesk', 'Inter', 'sans-serif'], // Fun font
+                sans: ['Space Grotesk', 'Inter', 'sans-serif'],
                 mono: ['JetBrains Mono', 'monospace'],
                 display: ['Syne', 'Outfit', 'sans-serif'],
             },

@@ -31,7 +31,7 @@ function Home() {
             <main>
                 <Hero />
 
-                {/* Featured Section */}
+                {}
                 <section className="py-24 border-t border-white/5">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -72,7 +72,7 @@ function Home() {
                     </div>
                 </section>
 
-                {/* Why Qrazy Section */}
+                {}
                 <section className="py-24 bg-neon-slime text-void-black">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid md:grid-cols-3 gap-16">
@@ -98,7 +98,7 @@ function Home() {
                     </div>
                 </section>
 
-                {/* Final CTA */}
+                {}
                 <section className="py-32 relative overflow-hidden text-center bg-void-black">
                     <div className="relative z-10 px-4">
                         <h2 className="text-5xl md:text-9xl font-display font-black text-white italic tracking-tighter uppercase mb-12">

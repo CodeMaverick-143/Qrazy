@@ -104,7 +104,7 @@ const CyberBackground: React.FC = () => {
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw faint grid
+           
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
             ctx.lineWidth = 1;
             const gridSize = 100;

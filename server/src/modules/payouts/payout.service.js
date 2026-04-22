@@ -4,7 +4,7 @@ import prisma from "../../config/prisma.js";
 
 class PayoutService {
     async createRequest(clubId, amount) {
-        // Validate clubId
+       
         const club = await prisma.club.findUnique({ where: { id: clubId } });
         if (!club) throw new Error("Club not found");
 
@@ -29,7 +29,7 @@ class PayoutService {
     }
 
     async calculateEarnings(clubId) {
-        // Find all orders for this club's events
+       
         const orders = await orderRepository.findMany({
             passType: {
                 event: { clubId }
@@ -38,7 +38,7 @@ class PayoutService {
 
         const totalEarned = orders.reduce((sum, order) => sum + order.passType.price, 0);
 
-        // Find processed and pending payouts
+       
         const payouts = await payoutRepository.findMany({ clubId });
         const totalPaidOut = payouts
             .filter(p => p.status === 'PROCESSED' || p.status === 'PENDING')

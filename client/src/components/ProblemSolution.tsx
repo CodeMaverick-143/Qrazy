@@ -16,7 +16,7 @@ export default function ProblemSolution() {
 
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
 
-                    {/* PROBLEM SIDE - Operational Risk */}
+                    {}
                     <div className="relative group perspective-1000">
                         <div className="absolute inset-0 bg-error-red/5 blur-3xl opacity-20 rounded-3xl"></div>
                         <div className="relative h-full p-8 lg:p-10 border border-white/5 bg-corp-bg-lighter rounded-2xl overflow-hidden hover:border-error-red/30 transition-colors duration-300">
@@ -51,7 +51,7 @@ export default function ProblemSolution() {
                         </div>
                     </div>
 
-                    {/* SOLUTION SIDE - Platform Stability */}
+                    {}
                     <div className="relative group perspective-1000">
                         <div className="absolute inset-0 bg-trust-blue/5 blur-3xl opacity-30 rounded-3xl"></div>
                         <div className="relative h-full p-8 lg:p-10 border border-trust-blue/20 bg-corp-bg-lighter/50 rounded-2xl overflow-hidden shadow-lg hover:border-trust-blue/40 transition-colors duration-300">

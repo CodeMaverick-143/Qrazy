@@ -45,7 +45,7 @@ export default function Events() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Discovery Header */}
+            {}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
                 <div className="max-w-2xl">
                     <div className="flex items-center gap-2 font-mono text-[10px] text-neon-slime uppercase tracking-[0.4em] mb-4">
@@ -58,7 +58,7 @@ export default function Events() {
                 <LocationSelector selectedCity={selectedCity} onCityChange={setSelectedCity} />
             </div>
 
-            {/* Weekend Highlights - Horizontal Scroll */}
+            {}
             <div className="mb-20">
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-xs font-mono font-black text-brand-gray/40 uppercase tracking-[0.3em]">
@@ -99,9 +99,9 @@ export default function Events() {
                 </div>
             </div>
 
-            {/* Discovery Grid with Sidebar */}
+            {}
             <div className="flex flex-col lg:flex-row gap-12">
-                {/* Sidebar - Calendar Discovery */}
+                {}
                 <div className="lg:w-64 shrink-0">
                     <div className="sticky top-32 space-y-8">
                         <div>
@@ -135,7 +135,7 @@ export default function Events() {
                     </div>
                 </div>
 
-                {/* Main Grid */}
+                {}
                 <div className="flex-grow">
                     <div className="flex items-center gap-4 mb-8">
                         <MagnifyingGlass className="text-brand-gray/40" size={20} />

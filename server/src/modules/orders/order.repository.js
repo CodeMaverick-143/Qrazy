@@ -8,7 +8,7 @@ class OrderRepository extends BaseRepository {
 
   async createTransactional(userId, passTypeId) {
       return await prisma.$transaction(async (tx) => {
-          // 1. Get PassType and check capacity
+         
           const passType = await tx.passType.findUnique({
               where: { id: passTypeId },
               include: { event: true }
@@ -17,7 +17,7 @@ class OrderRepository extends BaseRepository {
           if (!passType) throw new Error("Pass type not found");
           if (passType.capacity <= 0) throw new Error("Sold out");
 
-          // 2. Create Order
+         
           const order = await tx.order.create({
               data: {
                   userId,
@@ -25,14 +25,14 @@ class OrderRepository extends BaseRepository {
               }
           });
 
-          // 3. Create QR Pass
+         
           await tx.qRPass.create({
               data: {
                   orderId: order.id
               }
           });
 
-          // 4. Update capacity
+         
           await tx.passType.update({
               where: { id: passTypeId },
               data: { capacity: { decrement: 1 } }

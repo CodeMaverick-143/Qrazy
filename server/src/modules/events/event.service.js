@@ -7,7 +7,7 @@ class EventService {
         return await eventRepository.findMany(
             {
                 date: {
-                    gte: new Date(), // Only future events
+                    gte: new Date(),
                 },
                 ...(city && {
                     club: {

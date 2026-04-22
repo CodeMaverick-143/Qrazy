@@ -19,7 +19,6 @@ class EnvConfig {
         this.FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
         this.APP_NAME = "Qrazy";
 
-        // Mail Configuration
         this.MAIL_HOST = process.env.MAIL_HOST || 'smtp.ethereal.email';
         this.MAIL_PORT = Number(process.env.MAIL_PORT || 587);
         this.MAIL_USER = process.env.MAIL_USER || 'ereinaldo.kutch@ethereal.email';

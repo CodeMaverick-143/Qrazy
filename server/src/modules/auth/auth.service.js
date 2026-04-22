@@ -6,7 +6,6 @@ class AuthService {
         const { id, email, user_metadata } = supabaseUser;
         const name = user_metadata?.name || user_metadata?.full_name || email.split("@")[0];
 
-        // Sync Supabase user with local database
         const user = await userRepository.upsertByEmail(email, {
             name,
             isEmailVerified: true,
@@ -18,13 +17,12 @@ class AuthService {
 
     async login(token) {
         console.log("Attempting login sync with token:", token ? "Token provided" : "No token");
-        // Verify token with Supabase and get user data
         const { data: { user }, error } = await supabaseAuth.auth.getUser(token);
 
         if (error || !user) {
             console.error("Supabase Auth Error during sync:", error?.message || "No user found");
             const err = new Error(error?.message || "Invalid or expired session");
-            err.statusCode = 401; // Explicitly set 401 for auth failures
+            err.statusCode = 401;
             throw err;
         }
 

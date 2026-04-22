@@ -28,7 +28,7 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-12">
 
-                    {/* Logo (Left) */}
+                    {}
                     <Link to="/" className="flex-shrink-0 flex items-center gap-2 cursor-pointer group hover:rotate-1 transition-transform">
                         <div className="w-10 h-10 flex items-center justify-center bg-neon-slime border-2 border-void-black shadow-[4px_4px_0px_0px_#FF00FF]">
                             <Lightning weight="fill" className="text-void-black w-6 h-6 animate-pulse" />
@@ -38,7 +38,7 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Desktop Menu (Center) */}
+                    {}
                     <div className="hidden md:block">
                         <div className="flex items-center space-x-12">
                             {navLinks.map((link) => (
@@ -83,7 +83,7 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    {/* Mobile Toggle */}
+                    {}
                     <div className="flex md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
@@ -97,7 +97,7 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {}
             {isOpen && (
                 <div className="md:hidden absolute w-full bg-void-black border-b-4 border-neon-slime shadow-slime-glow">
                     <div className="px-4 pt-4 pb-8 space-y-4">

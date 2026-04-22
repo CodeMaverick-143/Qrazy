@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 
 class ScanService {
     async processScan(token, scannerUserId) {
-        // Here we could verify that scannerUserId belongs to CLUB_ADMIN. For now, assume it's checked by middleware.
+       
         
-        // Output from jwt payload
+       
         const secret = process.env.JWT_SECRET || "qrazy-protocol-secret-2026";
         let payload;
         try {
@@ -27,13 +27,13 @@ class ScanService {
             if (!qrPass) throw new Error("Pass not found");
             if (qrPass.used) throw new Error("Pass has already been used");
 
-            // Mark as used
+           
             await tx.qRPass.update({
                 where: { id: qrId },
                 data: { used: true }
             });
 
-            // Log the scan
+           
             const log = await tx.scanLog.create({
                 data: {
                     qrPassId: qrId,

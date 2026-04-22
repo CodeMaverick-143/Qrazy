@@ -6,7 +6,7 @@ export default function SecuritySection() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
 
-                    {/* Left Column: Text */}
+                    {}
                     <div className="mb-12 lg:mb-0">
                         <div className="inline-flex items-center px-3 py-1 rounded-full bg-brand-dark-blue/10 border border-brand-dark-blue/20 text-brand-dark-blue text-xs font-semibold mb-6 uppercase tracking-wider">
                             Enterprise Grade
@@ -37,7 +37,7 @@ export default function SecuritySection() {
                         </div>
                     </div>
 
-                    {/* Right Column: Grid */}
+                    {}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <SecurityCard
                             icon={<LockKey size={32} weight="duotone" className="text-trust-blue" />}

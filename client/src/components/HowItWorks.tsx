@@ -39,14 +39,14 @@ export default function HowItWorks() {
                 </div>
 
                 <div className="relative">
-                    {/* Connecting Line (Desktop) */}
+                    {}
                     <div className="hidden lg:block absolute top-12 left-[10%] w-[80%] h-0.5 bg-white/10 z-0"></div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
                         {steps.map((step, index) => (
                             <div key={index} className="relative group">
                                 <div className="flex flex-col items-center text-center">
-                                    {/* Icon Circle */}
+                                    {}
                                     <div className="w-24 h-24 rounded-full bg-corp-bg border border-white/10 flex items-center justify-center mb-8 relative z-10 shadow-lg group-hover:border-trust-blue/50 transition-colors duration-300">
                                         <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-corp-bg-lighter border border-white/10 flex items-center justify-center text-xs font-bold text-gray-500">
                                             {step.step}
@@ -57,7 +57,7 @@ export default function HowItWorks() {
                                     <h4 className="text-lg font-bold text-white mb-3">{step.title}</h4>
                                     <p className="text-gray-400 text-sm leading-relaxed max-w-[200px] mx-auto">{step.desc}</p>
 
-                                    {/* Mobile Connector */}
+                                    {}
                                     {index < steps.length - 1 && (
                                         <div className="lg:hidden mt-8 flex justify-center text-white/10">
                                             <CaretRight size={24} weight="bold" className="rotate-90" />
