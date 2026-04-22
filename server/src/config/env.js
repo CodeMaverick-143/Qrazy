@@ -16,7 +16,7 @@ class EnvConfig {
         this.SUPABASE_URL = process.env.SUPABASE_URL || "http://localhost:54321";
         this.SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || "dummy-anon-key";
         this.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "dummy-service-role-key";
-        this.FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+        this.FRONTEND_URL = process.env.FRONTEND_URL || "https://qrazy-drab.vercel.app";
         this.APP_NAME = "Qrazy";
 
         this.MAIL_HOST = process.env.MAIL_HOST || 'smtp.ethereal.email';
