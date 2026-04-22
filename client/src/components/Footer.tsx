@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
 
-                    {/* Brand Column */}
+                    {}
                     <div className="col-span-1 md:col-span-2">
                         <Link to="/" className="flex items-center gap-2 mb-6 cursor-pointer group">
                             <div className="w-8 h-8 flex items-center justify-center bg-neon-slime border border-void-black shrink-0">
@@ -25,7 +25,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Navigation */}
+                    {}
                     <div>
                         <h4 className="text-white font-display font-black uppercase mb-6 tracking-tight">Marketplace</h4>
                         <ul className="space-y-4 font-mono text-sm text-brand-gray/40">
@@ -56,7 +56,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Background Glow */}
+            {}
             <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-neon-slime/5 blur-[100px] rounded-full" />
         </footer>
     );

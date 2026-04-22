@@ -14,7 +14,7 @@ interface ClubCardProps {
 export default function ClubCard({ id, name, location, rating, image, description, isVerified }: ClubCardProps) {
     return (
         <div className="glass-panel group relative overflow-hidden transition-all duration-300 hover:-translate-y-2 border-neon-slime/20 hover:border-neon-slime shadow-lg hover:shadow-slime-glow">
-            {/* Image Section */}
+            {}
             <div className="relative h-48 overflow-hidden">
                 <img
                     src={image}
@@ -31,11 +31,11 @@ export default function ClubCard({ id, name, location, rating, image, descriptio
                 )}
 
                 <div className="absolute top-4 right-4 bg-void-black/80 backdrop-blur-md text-neon-slime border border-neon-slime/30 px-2 py-1 text-xs font-mono font-bold">
-                    {/* The rating display here is removed as per the instruction, which moves it to the content section. */}
+                    {}
                 </div>
             </div>
 
-            {/* Content Section */}
+            {}
             <div className="p-6">
                 <Link to={`/event/${id}`} className="flex justify-between items-start mb-4">
                     <h3 className="text-2xl font-display font-black text-white italic tracking-tighter uppercase group-hover:text-neon-slime transition-colors">
@@ -63,7 +63,7 @@ export default function ClubCard({ id, name, location, rating, image, descriptio
                 </Link>
             </div>
 
-            {/* Bottom Accent */}
+            {}
             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-hot-pink scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
         </div>
     );

@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import env from "./config/env.js";
 import router from "./routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -10,16 +11,37 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// Health check for Render
+app.head("/", (req, res) => {
+    res.status(200).end();
+});
+
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+    env.FRONTEND_URL,
+    "https://qrazy-drab.vercel.app",
+    "http://localhost:5173"
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log("Origin not allowed:", origin);
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"]
+}));
 
 app.use("/api", router);
 
-// Serve static files from the 'public' directory
 const publicPath = path.join(__dirname, "../public");
 app.use(express.static(publicPath));
 
-// Catch-all route to serve the frontend's index.html
 app.get(/^(?!\/api).+/, (req, res) => {
     res.sendFile(path.join(publicPath, "index.html"));
 });

@@ -17,7 +17,6 @@ class AuthController {
 
     async getMe(req, res, next) {
         try {
-            // req.user is attached by AuthMiddleware
             res.status(200).json({ user: req.user });
         } catch (error) {
             next(error);
@@ -25,13 +24,10 @@ class AuthController {
     }
 
     async requestMagicLink(req, res, next) {
-        // Supabase Magic Link is handled directly from the frontend
-        // This endpoint could be used for server-side link generation if needed
         res.status(501).json({ message: "Use Supabase client-side OTP for Magic Link" });
     }
 
     async verifyMagicLink(req, res, next) {
-        // Verification happens via the login/sync endpoint after Supabase confirms the OTP
         res.status(501).json({ message: "Use /auth/login with the Supabase session token to verify" });
     }
 }

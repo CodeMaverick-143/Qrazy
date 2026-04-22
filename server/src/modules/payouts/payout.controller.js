@@ -5,7 +5,7 @@ class PayoutController {
         try {
             const { clubId, amount } = req.body;
 
-            // In a real scenario, make sure req.user is a CLUB_ADMIN for clubId
+           
             
             if (!clubId || !amount) {
                 return res.status(400).json({ message: "clubId and amount are required" });

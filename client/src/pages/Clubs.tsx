@@ -17,7 +17,7 @@ export default function Clubs() {
         const fetchClubs = async () => {
             setLoading(true);
             try {
-                // In a real app, we'd add city/genre params to the API call
+               
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/clubs`);
                 if (response.ok) {
                     const data = await response.json();
@@ -38,13 +38,13 @@ export default function Clubs() {
         const matchesSearch = club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             club.city.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCity = selectedCity === 'ALL' || club.city.toUpperCase() === selectedCity;
-        // Genre isn't in backend yet, so we'll simulate it for UI
+       
         return matchesSearch && matchesCity;
     });
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Header with Location Selector */}
+            {}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
                 <div>
                     <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 border border-neon-slime/20 bg-neon-slime/5">
@@ -58,7 +58,7 @@ export default function Clubs() {
                 <LocationSelector selectedCity={selectedCity} onCityChange={setSelectedCity} />
             </div>
 
-            {/* Sticky Search & Discovery Bar */}
+            {}
             <div className="sticky top-20 z-40 bg-void-black/80 backdrop-blur-md border-b border-white/5 py-6 mb-12">
                 <div className="flex flex-col lg:flex-row gap-6 items-center">
                     <div className="relative flex-grow w-full">
@@ -77,7 +77,7 @@ export default function Clubs() {
                 </div>
             </div>
 
-            {/* Main Content */}
+            {}
             <div className="mb-8 flex items-center justify-between">
                 <h2 className="text-xs font-mono font-black text-brand-gray/40 uppercase tracking-[0.3em]">
                     Live In Demand • {selectedCity} sector

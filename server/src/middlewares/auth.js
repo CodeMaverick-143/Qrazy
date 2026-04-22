@@ -11,14 +11,14 @@ class AuthMiddleware {
 
             const token = authHeader.split(" ")[1];
 
-            // Verify token with Supabase
+           
             const { data: { user }, error } = await supabaseAuth.auth.getUser(token);
 
             if (error || !user) {
                 return res.status(401).json({ message: "Unauthorized: Invalid token" });
             }
 
-            // Fetch user from local DB to get role and other details
+           
             const dbUser = await prisma.user.findUnique({
                 where: { email: user.email },
             });

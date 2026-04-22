@@ -3,7 +3,7 @@ import { ArrowRight, EnvelopeSimple } from '@phosphor-icons/react';
 export default function CTABand() {
     return (
         <section className="py-20 bg-trust-blue relative overflow-hidden">
-            {/* Background Pattern */}
+            {}
             <div className="absolute inset-0 opacity-10 pattern-grid-lg"></div>
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

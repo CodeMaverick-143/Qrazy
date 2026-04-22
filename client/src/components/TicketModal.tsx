@@ -28,7 +28,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
 
     async function handleInitialize() {
         if (!session || initializing || !order || tokens[order.id]) return;
-        
+
         setInitializing(true);
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/passes/initialize/${order.id}`, {
@@ -66,7 +66,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    {/* Backdrop */}
+                    { }
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -75,9 +75,9 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                         className="absolute inset-0 bg-void-black/95 backdrop-blur-xl cursor-crosshair"
                     />
 
-                    {/* Navigation - Left */}
+                    { }
                     {orders.length > 1 && (
-                        <button 
+                        <button
                             disabled={currentIndex === 0}
                             onClick={prevTicket}
                             className={`hidden md:flex fixed left-8 top-1/2 -translate-y-1/2 p-4 border border-white/10 hover:border-neon-slime hover:text-neon-slime transition-all z-[60] ${currentIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-50 hover:opacity-100'}`}
@@ -86,9 +86,9 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                         </button>
                     )}
 
-                    {/* Navigation - Right */}
+                    { }
                     {orders.length > 1 && (
-                        <button 
+                        <button
                             disabled={currentIndex === orders.length - 1}
                             onClick={nextTicket}
                             className={`hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 p-4 border border-white/10 hover:border-neon-slime hover:text-neon-slime transition-all z-[60] ${currentIndex === orders.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-50 hover:opacity-100'}`}
@@ -97,7 +97,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                         </button>
                     )}
 
-                    {/* Modal Content */}
+                    { }
                     <motion.div
                         layoutId={`ticket-${order.id}`}
                         initial={{ scale: 0.9, opacity: 0, y: 50 }}
@@ -105,7 +105,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                         exit={{ scale: 0.9, opacity: 0, y: 50 }}
                         className="relative w-full max-w-lg bg-void-black border border-white/10 shadow-2xl overflow-hidden z-[55]"
                     >
-                        {/* Close Button */}
+                        { }
                         <button
                             onClick={onClose}
                             className="absolute top-6 right-6 z-20 p-2 text-brand-gray/40 hover:text-white transition-colors bg-white/5 border border-white/5"
@@ -113,11 +113,11 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                             <X size={20} weight="bold" />
                         </button>
 
-                        {/* Page Indicator */}
+                        { }
                         {orders.length > 1 && (
                             <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
                                 {orders.map((_, idx) => (
-                                    <div 
+                                    <div
                                         key={idx}
                                         className={`w-1.5 h-1.5 rounded-full transition-all ${idx === currentIndex ? 'bg-neon-slime scale-125' : 'bg-white/10'}`}
                                     />
@@ -125,12 +125,12 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                             </div>
                         )}
 
-                        {/* Ticket Body */}
+                        { }
                         <div className="holographic-card p-[1px]">
                             <div className="bg-void-black p-8 sm:p-12 relative overflow-hidden">
-                                {/* Decorative Tech Elements */}
+                                { }
                                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-neon-slime/50 to-transparent" />
-                                
+
                                 <div className="flex justify-between items-start mb-12">
                                     <div className="flex items-center gap-3">
                                         <div className="w-12 h-12 bg-neon-slime flex items-center justify-center text-void-black shadow-slime-glow-soft">
@@ -166,7 +166,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                 <div className="grid grid-cols-2 gap-8 mb-12 py-8 border-y border-white/5 relative">
                                     <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-6 h-12 bg-void-black rounded-r-full border border-white/10" />
                                     <div className="absolute -right-12 top-1/2 -translate-y-1/2 w-6 h-12 bg-void-black rounded-l-full border border-white/10" />
-                                    
+
                                     <div>
                                         <div className="text-[10px] font-mono text-brand-gray/40 uppercase mb-2 tracking-[0.2em]">Pass Tier</div>
                                         <div className="text-xl font-mono text-neon-slime font-black uppercase italic tracking-tighter">{order.passType.name}</div>
@@ -191,7 +191,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                                     fgColor="#000000"
                                                     includeMargin={false}
                                                 />
-                                                <motion.div 
+                                                <motion.div
                                                     initial={{ height: '100%' }}
                                                     animate={{ height: 0 }}
                                                     transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -207,10 +207,10 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                             </div>
                                         )}
                                     </div>
-                                    
+
                                     <div className="flex-grow space-y-6 w-full">
                                         {!entryToken ? (
-                                            <button 
+                                            <button
                                                 onClick={handleInitialize}
                                                 disabled={initializing}
                                                 className="w-full py-5 bg-neon-slime text-void-black font-mono text-[12px] font-black uppercase tracking-[0.5em] hover:bg-white hover:shadow-slime-glow-soft transition-all relative overflow-hidden group/btn"
@@ -223,7 +223,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                                 ) : (
                                                     <>
                                                         <span className="relative z-10">INITIALIZE ENTRY</span>
-                                                        <motion.div 
+                                                        <motion.div
                                                             className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-500"
                                                         />
                                                     </>
@@ -232,7 +232,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                         ) : (
                                             <div className="space-y-4">
                                                 <div className="p-4 bg-white/5 border border-white/10 font-mono text-[10px] leading-relaxed uppercase space-y-2">
-                                                    <div className="text-neon-slime font-black tracking-widest">// ENTRY_PROTOCOL: ACTIVE</div>
+                                                    <div className="text-neon-slime font-black tracking-widest"></div>
                                                     <p className="text-brand-gray/60 italic">Present this encrypted QR at the secure perimeter. Access is non-transferable.</p>
                                                 </div>
                                                 <div className="flex gap-4">
@@ -248,7 +248,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({ isOpen, onClose, order
                                     </div>
                                 </div>
 
-                                {/* Security Footer */}
+                                { }
                                 <div className="mt-12 pt-8 border-t border-dashed border-white/10 flex justify-between items-center opacity-30">
                                     <div className="flex items-center gap-2">
                                         <Sparkle weight="fill" className="text-electric-cyan animate-pulse" size={10} />

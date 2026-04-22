@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import heroImg from '../assets/hero.png';
 
 export default function Hero() {
-    // Deterministic bit-mask for background noise (100% pure & idempotent)
+   
     const heroNoise = Array.from({ length: 64 }).map((_, i) => (i * 13 + 7) % 2 === 0);
 
     return (
         <div className="relative isolate bg-void-black overflow-hidden min-h-[90vh] flex items-center">
-            {/* Background Image with Overlay */}
+            {}
             <div className="absolute inset-0 z-0">
                 <img
                     src={heroImg}
@@ -22,7 +22,7 @@ export default function Hero() {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 grid lg:grid-cols-2 gap-12 items-center relative z-10">
 
-                {/* Left Column: Copy */}
+                {}
                 <div className="text-left">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -116,7 +116,7 @@ export default function Hero() {
                             <p className="text-center font-mono text-[10px] text-white tracking-[0.2em] font-black italic">SCAN FOR ADMISSION</p>
                         </div>
 
-                        {/* Secondary Card */}
+                        {}
                         <motion.div
                             animate={{ y: [0, 10, 0] }}
                             transition={{ duration: 4, repeat: Infinity }}
@@ -128,7 +128,7 @@ export default function Hero() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Gradient Blow */}
+                    {}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-hot-pink/20 blur-[120px] rounded-full -z-10 animate-pulse" />
                 </div>
             </div>

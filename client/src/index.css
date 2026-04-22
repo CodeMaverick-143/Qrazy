@@ -205,7 +205,7 @@ body::after {
   }
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
   width: 10px;
 }

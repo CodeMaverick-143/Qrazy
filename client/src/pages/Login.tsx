@@ -47,12 +47,12 @@ function Login() {
 
     return (
         <div className="min-h-[90vh] flex flex-col items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Decorative Elements */}
+            {}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-slime/5 blur-[120px] rounded-full -z-10" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-hot-pink/5 blur-[120px] rounded-full -z-10" />
 
             <div className="max-w-md w-full relative">
-                {/* Header Section */}
+                {}
                 <div className="text-center mb-10">
                     <div className="inline-flex items-center justify-center p-4 bg-void-black border-2 border-neon-slime shadow-slime-glow mb-6 transform -rotate-2">
                         <Fingerprint size={48} className="text-neon-slime" weight="duotone" />
@@ -66,9 +66,9 @@ function Login() {
                     </p>
                 </div>
 
-                {/* Main Auth Container */}
+                {}
                 <div className="glass-panel border-white/5 relative overflow-hidden group">
-                    {/* Tab Switcher */}
+                    {}
                     <div className="flex border-b border-white/5">
                         <button
                             onClick={() => setActiveTab('login')}
@@ -94,7 +94,7 @@ function Login() {
                         )}
 
                         <div className="space-y-6">
-                            {/* Google Sign In */}
+                            {}
                             <button
                                 onClick={handleGoogleLogin}
                                 disabled={loading}
@@ -112,7 +112,7 @@ function Login() {
                                 <div className="relative flex justify-center"><span className="bg-void-black px-4 font-mono text-[8px] text-brand-gray/20 uppercase tracking-[0.5em]">Network Bridge</span></div>
                             </div>
 
-                            {/* Magic Link Login */}
+                            {}
                             <form onSubmit={handleMagicLink} className="space-y-4">
                                 <div className="space-y-2">
                                     <label className="flex items-center justify-between px-1">
@@ -162,7 +162,7 @@ function Login() {
                         </div>
                     </div>
 
-                    {/* Footer Info */}
+                    {}
                     <div className="p-6 bg-white/5 border-t border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <ShieldCheck size={16} className="text-neon-slime" />
@@ -172,7 +172,7 @@ function Login() {
                     </div>
                 </div>
 
-                {/* Additional Trust Signal */}
+                {}
                 <div className="mt-8 flex justify-center gap-8 opacity-20 grayscale">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-4" alt="PayPal" />
                     <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_logo%2C_revised_2016.svg" className="h-4" alt="Stripe" />
