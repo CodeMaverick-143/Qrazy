@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// Health check for Render
+
 app.head("/", (req, res) => {
     res.status(200).end();
 });

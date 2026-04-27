@@ -29,7 +29,7 @@ Qrazy is a high-performance, decentralized nightlife access platform designed to
 ### Infrastructure
 - **Containerization**: Docker & Docker-Compose
 - **Reverse Proxy**: Nginx with SSL termination
-- **CI/CD**: GitHub Actions (Verification & Automated SSH Deployment)
+- **CI/CD**: GitHub Actions (Automated Build & Amazon ECS Deployment)
 - **Monitoring**: Integration-level health checks
 
 ## Getting Started
@@ -75,16 +75,23 @@ Qrazy is a high-performance, decentralized nightlife access platform designed to
 
 ## Production Deployment
 
-The project is configured for automated deployment via GitHub Actions.
+The project is configured for automated containerized deployment via GitHub Actions.
 
 ### Deployment Workflow
-- **Continuous Integration**: Every push triggers a build, lint, and Prisma validation check.
-- **Continuous Deployment**: Successful builds on the `main` branch are automatically deployed to `Qrazy.nstsdc.org` via SSH.
+- **Continuous Integration**: Every push triggers build, lint, and Prisma validation checks via `.github/workflows/ci.yml`.
+- **Continuous Deployment**: Successful merges to `main` trigger `.github/workflows/deploy.yml` which:
+    1. Builds Docker images for Frontend and Backend.
+    2. Pushes images to **Amazon ECR**.
+    3. Updates the **Amazon ECS (Fargate)** task definition.
+    4. Triggers a rolling update on the ECS Service.
 
-### Server Requirements
-- Docker and Docker-Compose must be installed on the host.
-- Nginx must be configured to use the provided `deploy/nginx/conf.d/default.conf`.
-- GitHub Secrets (`SERVER_HOST`, `SERVER_USER`, `SSH_PRIVATE_KEY`) must be configured in the repository settings.
+### Infrastructure Requirements
+- **Amazon ECR**: Repositories for `qrazy-frontend` and `qrazy-backend`.
+- **Amazon ECS**: A cluster and service configured with Fargate.
+- **AWS SSM**: Secrets stored in Parameter Store (`/QRAZY_DATABASE_URL`, etc.).
+- **GitHub Secrets**:
+    - `AWS_ACCESS_KEY_ID` & `AWS_SECRET_ACCESS_KEY`
+    - `SUPABASE_URL` & `SUPABASE_ANON_KEY` (for frontend build)
 
 ## Development Standards
 
