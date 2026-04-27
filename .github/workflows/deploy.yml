@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  AWS_REGION: us-east-1 # Change this to your preferred region
+  AWS_REGION: us-east-1
   ECR_REPOSITORY_BACKEND: qrazy-backend
   ECR_REPOSITORY_FRONTEND: qrazy-frontend
   ECS_SERVICE: qrazy-service
@@ -31,6 +31,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+          audience: sts.amazonaws.com
+          output-env-credentials: true
 
       - name: Login to Amazon ECR
         id: login-ecr
